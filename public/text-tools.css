@@ -1,0 +1,43 @@
+/* SKY text & password tools - widgets */
+.tt-textarea{width:100%;min-height:130px;background:#0c0713;border:1px solid rgba(190,131,255,.25);color:#fff;border-radius:5px;padding:12px;font:14px/1.6 var(--sans);resize:vertical}
+.tt-textarea:focus{outline:none;border-color:rgba(246,201,105,.6)}
+.tt-out{background:#0c0713;border:1px solid rgba(246,201,105,.35);border-radius:5px;padding:14px;font:600 15px/1.6 var(--sans);color:var(--gold2);word-break:break-all;cursor:pointer;min-height:24px}
+.tt-out:empty:before{content:"Result will appear here";color:#756781;font-weight:400}
+.tt-row{display:flex;flex-wrap:wrap;gap:9px;margin:10px 0}
+.tt-counts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}
+.tt-count{background:#0c0713;border:1px solid var(--line);border-radius:5px;padding:12px;text-align:center}
+.tt-count b{display:block;font:700 24px var(--serif);color:var(--gold2)}
+.tt-count span{font-size:10px;color:var(--muted);letter-spacing:.08em}
+.tt-check{display:flex;align-items:center;gap:8px;font-size:12px;color:#c5b8d4;margin:6px 0}
+.tt-check input{width:18px;height:18px;accent-color:var(--gold)}
+.tt-range{display:flex;align-items:center;gap:12px}
+.tt-range input{flex:1;accent-color:var(--gold)}
+.tt-range b{color:var(--gold2);font-size:14px;min-width:24px;text-align:center}
+.tt-sub{display:block;width:100%;font:600 15px var(--serif);color:var(--gold2);margin:18px 0 8px;border-top:1px solid var(--line);padding-top:16px;text-align:left}
+/* tool pages: neutral block workspace, not the image-canvas checkerboard */
+body[data-tool] .canvas-wrap{display:block;background:#0c0713;text-align:left}
+body[data-tool] .canvas-wrap:before{display:none}
+body[data-tool] .tt-out{display:block;width:100%}
+/* substantial touch targets matching site gold controls */
+.tt-row .gold-action,.tt-row .outline-action{min-height:46px;padding:12px 18px;font-size:12px;border-radius:4px;flex:1;letter-spacing:.02em}
+.tt-row{gap:10px}
+.tt-check{min-height:32px}
+.tt-range input{min-height:32px}
+.tt-area{width:100%;background:#0c0713;border:1px solid rgba(246,201,105,.35);border-radius:5px;padding:12px;font:500 13px/1.6 monospace;color:#efe6d4;resize:vertical;min-height:110px}
+.tt-file{display:block;text-align:center;padding:16px;border:2px dashed rgba(246,201,105,.5);border-radius:6px;color:var(--gold2);font:600 14px var(--sans);cursor:pointer;min-height:52px}
+.tt-num{flex:1;display:flex;flex-direction:column;gap:4px;font:600 12px var(--sans);color:#cbbfae;min-width:120px}
+.tt-num input,.tt-sel{background:#0c0713;border:1px solid rgba(246,201,105,.35);border-radius:4px;padding:10px;color:#efe6d4;font:500 15px var(--sans);width:100%}
+.tt-prev img{max-width:100%;border-radius:6px;border:1px solid rgba(246,201,105,.25);margin-top:10px}
+.cr-canvas{max-width:100%;touch-action:none;border-radius:6px;cursor:crosshair}
+.status.ok{color:#7ee2a0}.status.err{color:#ff9a8a}
+
+/* pdf-merge file list */
+.pm-list{display:flex;flex-direction:column;gap:8px;margin:12px 0;width:100%}
+.pm-row{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#291044;border-radius:6px;padding:10px}
+.pm-name{flex:1;min-width:0;font:600 13px var(--sans);color:#efe6d4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pm-pages{font:500 11px var(--sans);color:#a99ab8;white-space:nowrap}
+.pm-btn{min-width:46px;min-height:46px;border:1px solid rgba(246,201,105,.35);background:transparent;color:var(--gold2);border-radius:4px;font-size:15px;cursor:pointer}
+.pm-btn:disabled{opacity:.3;cursor:default}
+.pm-err{color:#ff9a8a;font-size:11px;flex-basis:100%}
+
+#pcCanvas{max-width:100%;height:auto;border-radius:6px;display:block;margin:8px auto}
