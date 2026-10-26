@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://late-union-112b.vikaashvarma88.workers.dev/sitemap.xml
