@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><script src="zoom-lock.js" defer></script>
+  <meta name="theme-color" content="#08040f">
+  <meta name="description" content="SKY JSON to CSV - turn a JSON list into a spreadsheet-ready CSV, on your device only.">
+  <title>SKY JSON to CSV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="editor.css">
+  <link rel="stylesheet" href="text-tools.css">
+</head>
+<body data-tool="jsoncsv">
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+<header class="topbar"><a class="brand-mini" href="index.html"><span class="mini-gem">✦</span> SKY</a><a class="backlink" href="index.html">← Back to SKY Home</a></header>
+<main class="editor-page"><div class="editor-head"><div><div class="section-kicker">SKY FREE TOOLS</div><h1>JSON <span>to CSV</span></h1><p>Turn a JSON list into a CSV you can open in Excel or Sheets.</p></div></div>
+<div class="editor-layout"><section class="toolbox"><h2>How to use</h2><label>1. Paste a JSON list</label><p class="quick-hint">A list of objects, e.g. [{"name":"Ram","age":30},{"name":"Sita","age":28}]</p><label>2. Tap Convert</label><label>3. Copy or download the CSV</label></section>
+<section class="canvas-box"><div class="canvas-top"><b>Your JSON</b><span>stays on your device</span></div><div class="canvas-wrap" style="padding:18px"><textarea id="jcIn" class="tt-area" rows="7" placeholder='[{"name":"Ram","age":30},{"name":"Sita","age":28}]'></textarea><div class="tt-row"><button id="jcGo" class="gold-action">⇩ Convert to CSV</button><button id="jcClear" class="outline-action">Clear</button></div><div class="status" id="jcStatus" role="status"></div><textarea id="jcOut" class="tt-area" rows="7" placeholder="CSV will appear here" readonly></textarea><div class="tt-row"><button id="jcCopy" class="gold-action">Copy CSV</button><button id="jcDl" class="outline-action">Download .csv</button></div></div></section></div>
+<p class="editor-footer">Privacy note: this tool runs fully in your browser. Nothing you paste is sent to SKY or anywhere else.</p></main>
+<script src="studio2.js"></script>
+<script src="/scroll-economy.js" defer></script>
+<script src="/tool-return.js" defer></script>
+<script src="/spring-ui.js" defer></script>
+</body>
+</html>
