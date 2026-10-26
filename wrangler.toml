@@ -1,0 +1,11 @@
+name = "late-union-112b"
+main = "src/worker.js"
+compatibility_date = "2026-10-24"
+[assets]
+directory = "./public"
+binding = "ASSETS"
+[ai]
+binding = "AI"
+[[kv_namespaces]]
+binding = "RATE"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
