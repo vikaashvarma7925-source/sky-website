@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><script src="zoom-lock.js" defer></script>
+  <meta name="theme-color" content="#08040f">
+  <meta name="description" content="SKY Screenshot Text Editor - edit text on your own images, on your device.">
+  <title>SKY Screenshot Text Editor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+<header class="topbar"><a class="brand-mini" href="index.html"><span class="mini-gem">✦</span> SKY</a><a class="backlink" href="index.html">← Back to SKY Home</a></header>
+<main class="editor-page"><div class="editor-head"><div><div class="section-kicker">SKY CREATIVE TOOLS</div><h1>Screenshot <span>Text Editor</span></h1><p>Upload a photo, cover an area, add text, then save your edited image. Your photo stays in this browser in this basic version.</p></div></div>
+<div class="editor-layout"><section class="toolbox"><h2>Editing tools</h2><label for="imageFile">1. Upload image</label><input id="imageFile" type="file" accept="image/*">
+<label>2. Tap the text on your image</label><p class="quick-hint">After upload, text lines are found on your device automatically. Tap a gold box on the image, change the words, done. Font and colour are matched automatically (approximate, not exact).</p>
+<div class="tool-actions"><button id="findText" class="outline-action" type="button">⌕ Find text again</button><button id="ocrCancel" class="outline-action ed-hidden" type="button">Cancel reading</button></div>
+<div id="quickEdit" class="ed-hidden"><label for="quickText">Change it to</label><input id="quickText" type="text" maxlength="180"><div class="tool-actions"><button id="quickReplace" class="gold-action" type="button">✓ Replace text</button><button id="regionCancel" class="outline-action" type="button">Cancel</button></div></div>
+<label>3. Save your image</label><p class="quick-hint">Use the gold “Save PNG” button under the image. If you changed words but did not tap Replace, saving applies your change. The saved image goes to your phone’s Downloads or Files app.</p>
+<details class="more-opts"><summary>More options (manual tools)</summary>
+<label for="toolMode">Canvas action</label><select id="toolMode"><option value="text">Place / move text</option><option value="cover">Cover old text with a solid colour</option></select>
+<label for="newText">Text to add</label><input id="newText" type="text" maxlength="180" placeholder="Type your text here">
+<label for="fontFamily">Font style</label><select id="fontFamily"><option value="Arial">Arial</option><option value="Inter">Inter</option><option value="Georgia">Georgia</option><option value="Times New Roman">Times New Roman</option><option value="Cinzel">Cinzel</option><option value="Courier New">Courier New</option></select>
+<label for="fontSize">Text size <span id="sizeValue">32</span> px</label><input id="fontSize" type="range" min="10" max="120" value="32">
+<label class="ed-check"><input id="boldText" type="checkbox"> Bold text</label>
+<label for="textColor">Text colour</label><input id="textColor" type="color" value="#ffffff">
+<label for="coverColor">Cover colour</label><input id="coverColor" type="color" value="#ffffff">
+<label for="coverOpacity">Cover opacity <span id="opacityValue">100</span>%</label><input id="coverOpacity" type="range" min="10" max="100" value="100">
+<div class="tool-actions"><button id="addText" class="gold-action">＋ Add text at centre</button><button id="replaceGo" class="gold-action ed-hidden" type="button">✓ Cover region &amp; place text</button><button id="undo" class="outline-action">Undo last change</button><button id="clearText" class="outline-action">Remove all added text</button></div>
+<p class="help-note">Manual mode: choose “Place / move text”, then tap the image to position the selected text. Drag existing text to move it. Choose “Cover old text” and drag across an area to cover it with a solid colour. Complex backgrounds are not reconstructed automatically. Your photo is never uploaded.</p></details></section>
+<section class="canvas-box"><div class="canvas-top"><b>Image workspace</b><span id="imageDimensions">No image loaded</span></div><div class="canvas-wrap" id="canvasWrap"><div class="region-overlay" id="regionOverlay"></div><div class="empty-hint" id="emptyHint">Your image will appear here.<br>Choose an image above to start editing.</div><canvas id="canvas" hidden></canvas></div><div class="canvas-actions"><button id="download" class="gold-action">↓ Save PNG</button><button id="resetImage" class="outline-action">Reset image</button></div><div class="status" id="status" role="status"></div></section></div>
+<p class="editor-footer">Privacy note: this starter editor processes the image locally in your browser and does not upload it to SKY. Only edit your own images or images you have permission to change.</p></main>
+  <script src="editor.js"></script>
+<script src="/scroll-economy.js" defer></script>
+<script src="/tool-return.js" defer></script>
+<script src="/spring-ui.js" defer></script>
+</body>
+</html>
