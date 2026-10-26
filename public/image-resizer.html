@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><script src="zoom-lock.js" defer></script>
+  <meta name="theme-color" content="#08040f">
+  <meta name="description" content="SKY Image Resizer - resize JPG, PNG or WebP photos on your device, no upload.">
+  <title>SKY Image Resizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="editor.css">
+  <link rel="stylesheet" href="text-tools.css">
+</head>
+<body data-tool="resize">
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+<header class="topbar"><a class="brand-mini" href="index.html"><span class="mini-gem">✦</span> SKY</a><a class="backlink" href="index.html">← Back to SKY Home</a></header>
+<main class="editor-page"><div class="editor-head"><div><div class="section-kicker">SKY FREE TOOLS</div><h1>Image <span>Resizer</span></h1><p>Make a photo smaller or change its size. Works on your phone, no upload.</p></div></div>
+<div class="editor-layout"><section class="toolbox"><h2>How to use</h2><label>1. Pick a photo</label><label>2. Set the new width or height</label><p class="quick-hint">The other side adjusts automatically so the photo does not stretch.</p><label>3. Tap Resize, then Download</label></section>
+<section class="canvas-box"><div class="canvas-top"><b>Your photo</b><span>never leaves your device</span></div><div class="canvas-wrap" style="padding:18px"><label class="tt-file" for="rsFile">📷 Choose photo</label><input id="rsFile" type="file" accept="image/*" hidden><div class="status" id="rsStatus" role="status"></div><div id="rsControls" class="file-hidden"><div class="tt-row"><span class="tt-num"><label>Width (px)</label><input id="rsW" type="number" min="1" inputmode="numeric"></span><span class="tt-num"><label>Height (px)</label><input id="rsH" type="number" min="1" inputmode="numeric"></span></div><label class="tt-check"><input id="rsLock" type="checkbox" checked> Keep original shape (no stretching)</label><div class="tt-row"><span class="tt-num"><label>Save as</label><select id="rsFmt" class="tt-sel"><option value="image/jpeg">JPG (smaller file)</option><option value="image/png">PNG (best quality)</option><option value="image/webp">WebP</option></select></span></div><div class="tt-row"><button id="rsGo" class="gold-action">✦ Resize</button></div><div class="tt-row"><button id="rsDl" class="gold-action file-hidden">Download image</button></div><div class="tt-prev"><img id="rsImg" alt="preview" class="file-hidden"></div></div></div></section></div>
+<p class="editor-footer">Privacy note: this tool runs fully in your browser. Your photo is never sent to SKY or anywhere else. Resizing changes the canvas size; it does not add new detail.</p></main>
+<script src="studio2.js"></script>
+<script src="/scroll-economy.js" defer></script>
+<script src="/tool-return.js" defer></script>
+<script src="/spring-ui.js" defer></script>
+</body>
+</html>
