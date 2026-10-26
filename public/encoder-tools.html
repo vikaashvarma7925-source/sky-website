@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><script src="zoom-lock.js" defer></script>
+  <meta name="theme-color" content="#08040f">
+  <meta name="description" content="SKY Encoder Tools - Base64, URL encode/decode and UUID generator, on your device.">
+  <title>SKY Encoder Tools</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="editor.css">
+  <link rel="stylesheet" href="text-tools.css">
+</head>
+<body data-tool="encoder">
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+<header class="topbar"><a class="brand-mini" href="index.html"><span class="mini-gem">✦</span> SKY</a><a class="backlink" href="index.html">← Back to SKY Home</a></header>
+<main class="editor-page"><div class="editor-head"><div><div class="section-kicker">SKY FREE TOOLS</div><h1>Encoder <span>Tools</span></h1><p>Base64 and URL encode/decode, plus random UUIDs - small utilities in one place.</p></div></div>
+<div class="editor-layout"><section class="toolbox"><h2>How to use</h2><label>1. Pick a tool below</label><label>2. Paste text and tap Encode or Decode</label><label>3. Tap the result to copy it</label><p class="quick-hint">Base64 and URL encoding are not passwords or locks. Anyone can decode them.</p></section>
+<section class="canvas-box"><div class="canvas-top"><b>Encode / decode</b><span>tap result to copy</span></div><div class="canvas-wrap" style="padding:18px"><div class="tt-sub">Base64</div><textarea id="b64Text" class="tt-textarea" placeholder="Text to Base64, or Base64 to text..."></textarea><div class="tt-row"><button id="b64Enc" class="gold-action">Encode → Base64</button><button id="b64Dec" class="outline-action">Decode Base64 →</button></div><div class="tt-out" id="b64Out" role="button" tabindex="0"></div><div class="status" id="b64Status" role="status"></div><div class="tt-sub">URL</div><textarea id="urlText" class="tt-textarea" placeholder="Text or link to make URL-safe..."></textarea><div class="tt-row"><button id="urlEnc" class="gold-action">Encode for URL</button><button id="urlDec" class="outline-action">Decode from URL</button></div><div class="tt-out" id="urlOut" role="button" tabindex="0"></div><div class="status" id="urlStatus" role="status"></div><div class="tt-sub">UUID</div><div class="tt-row"><button id="uuidGen" class="gold-action">⟳ New UUID</button></div><div class="tt-out" id="uuidOut" role="button" tabindex="0"></div><div class="status" id="uuidStatus" role="status"></div></div></section></div>
+<p class="editor-footer">Privacy note: this tool runs fully in your browser. Nothing you type is sent to SKY or anywhere else.</p></main>
+<script src="text-tools.js"></script>
+<script src="/scroll-economy.js" defer></script>
+<script src="/tool-return.js" defer></script>
+<script src="/spring-ui.js" defer></script>
+</body>
+</html>
