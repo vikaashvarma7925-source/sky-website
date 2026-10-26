@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><script src="zoom-lock.js" defer></script>
+  <meta name="theme-color" content="#08040f">
+  <meta name="description" content="SKY AI - free creative tools that run on your device: photo compressor, passport photo, PDF merge and unlock, step-by-step document guides, and the SKY AI assistant.">
+  <title>SKY AI — Free Creative Tools</title>
+  <link rel="canonical" href="https://late-union-112b.vikaashvarma88.workers.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SKY AI — Free Creative Tools">
+  <meta property="og:description" content="Free creative tools that run on your device: photo tools, PDF tools, document guides, and the SKY AI assistant.">
+  <meta property="og:url" content="https://late-union-112b.vikaashvarma88.workers.dev/">
+  <meta name="twitter:card" content="summary">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="home-preview.css">
+  <script src="home-preview.js" defer></script>
+</head>
+<body>
+  <div class="sky-star-dust" aria-hidden="true"></div>
+  <canvas id="skyStars" aria-hidden="true"></canvas>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div class="fx-aurora fx-aurora-a" aria-hidden="true"></div><div class="fx-aurora fx-aurora-b" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand-mini" href="#home" aria-label="Sky Imperium home"><span class="mini-gem">✦</span> SKY</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <nav id="nav">
+      <a href="#assistant" data-i18n="nav.cap">Modes</a><a href="#assistant" data-i18n="nav.studio">AI Studio</a><a href="#photo-tools" data-i18n="nav.photo">Photo Tools</a><a href="#pdf-tools" data-i18n="nav.pdf">PDF Tools</a><a href="#text-tools">Text Tools</a><a href="#data-tools">Data Tools</a><a href="#code-pdf-tools">PDF Tools</a><a href="#photo-pdf-tools">Photo Fix</a>
+        <a href="#guide" data-i18n="nav.guide">Guide</a><a href="#about" data-i18n="nav.about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="stage-wrap" id="stageWrap">
+    <div class="stage">
+    <section class="panel" data-panel id="home">
+          <div class="inner scene-glass">
+    <div class="hero-copy">
+            <div class="eyebrow"><span class="pulse"></span> <span data-i18n="hero.eyebrow">THE NEXT ERA OF INTELLIGENCE</span></div>
+            <h1><span data-i18n="hero.h1a">Your intelligence.</span><br><span data-i18n="hero.h1b">Your empire.</span></h1>
+            <p class="hero-text" data-i18n="hero.text">Meet SKY — chat with a real AI, create images from words, and use free photo, PDF and everyday tools. One powerful space.</p>
+            <div class="hero-actions"><a class="btn btn-gold" href="#photo-tools">Try free photo &amp; PDF tools ↓</a><a class="btn btn-outline" href="#guide">Document guides ↓</a></div>
+            <div class="trust-line"><span class="tiny-stars">✦ ✧ ✦</span> <span data-i18n="hero.trust">Built for curious minds and bold ideas</span></div>
+          </div>
+          </div>
+        </section>
+    <section class="panel" data-panel>
+          <div class="inner">
+        <p class="kicker">STEP INTO THE EMPIRE</p>
+        <h2 class="scene-h"><span>WELCOME TO</span><br>SKY</h2>
+        <p class="hint2">CHAT · IMAGE · FREE TOOLS</p>
+      </div>
+    </section>
+    <section class="panel" data-panel>
+          <div class="inner">
+            <p class="kicker">THE STUDIO</p>
+            <h2 class="scene-h"><span>PHOTO. PDF. AI.</span><br>ONE STUDIO.</h2>
+            <div class="chips">
+              <button type="button" class="chip" data-category="photo" aria-haspopup="dialog">Photo</button>
+              <button type="button" class="chip" data-category="pdf" aria-haspopup="dialog">PDF</button>
+              <button type="button" class="chip" data-category="text" aria-haspopup="dialog">Text</button>
+              <button type="button" class="chip" data-category="ai" aria-haspopup="dialog">AI Chat</button>
+              <button type="button" class="chip" data-category="money" aria-haspopup="dialog">Money</button>
+              <button type="button" class="chip" data-category="dev" aria-haspopup="dialog">Dev</button>
+            </div>
+            <p class="hint2">Tap a category to choose a tool</p>
+          </div>
+        </section>
+    </div>
+  </div>
+
+    <section class="section-wrap intro" id="about">
+      <div class="section-kicker" data-i18n="about.kicker">A NEW KIND OF WORKSPACE</div>
+      <h2 data-i18n-html="about.h2">Powerful tools. <span>One universe.</span></h2>
+      <p data-i18n="about.p">From a first question to your next big idea, SKY brings your workflow into one beautifully focused space.</p>
+    </section>
+
+    
+    <section class="studio section-wrap" id="assistant">
+      <div class="studio-heading">
+        <div><div class="section-kicker" data-i18n="st.kicker">YOUR COMMAND CENTER</div><h2 data-i18n-html="st.h2">Welcome to <span>SKY Studio</span></h2></div>
+        <div class="online-pill"><span class="pulse"></span> <span data-i18n="st.live">LIVE AI</span></div>
+      </div>
+      <div class="studio-shell">
+        <aside class="studio-sidebar">
+          <div class="sidebar-label" data-i18n="st.ws">WORKSPACE</div>
+          <button class="mode-btn active" data-mode="chat"><span class="mode-icon">✧</span><span class="mode-name" data-i18n="st.chat">Chat</span><span class="mode-sub">Ask anything, any topic</span></button>
+          <button class="mode-btn" data-mode="image"><span class="mode-icon">▣</span><span class="mode-name" data-i18n="st.image">Image</span><span class="mode-sub">Describe it, SKY draws it</span></button>
+          <div class="mode-btn mode-soon" aria-disabled="true"><span class="mode-icon">▶</span><span class="mode-name">Video</span><span class="mode-sub">Not available on this free website yet</span></div>
+          <div class="sidebar-bottom"><div class="avatar">S</div><div><b data-i18n="st.guest">Guest explorer</b><small data-i18n="st.free">Free daily limit</small></div></div>
+        </aside>
+        <div class="chat-panel">
+          <div class="chat-top"><div><span class="status-dot"></span><b id="modeTitle">SKY Assistant</b><small id="modeSubtitle">Your ideas start here</small></div><button id="clearChat" class="icon-button" title="Clear conversation" aria-label="Clear conversation">↺</button></div>
+          <div class="messages" id="messages" aria-live="polite">
+            <div class="message sky-message"><div class="message-avatar">S</div><div class="bubble"><b>Welcome, explorer.</b><p id="welcomeText">I’m SKY. Ask me anything, any topic. Real AI answers with a free daily limit.</p><span class="message-time">SKY · NOW</span></div></div>
+            <div class="suggestions" id="suggestions"><button>Help me plan a website</button><button>Explain a complex topic simply</button><button>Give me 5 creative ideas</button></div>
+          </div>
+          <form class="composer" id="chatForm">
+            <textarea id="promptInput" rows="1" placeholder="Ask SKY anything..." aria-label="Message SKY"></textarea>
+            <button class="mic-button" type="button" id="voiceButton" title="Use voice input" aria-label="Use voice input">♩</button>
+            <button class="send-button" type="submit" aria-label="Send message">↑</button>
+          </form>
+          <div class="composer-note" id="voiceStatus">SKY AI assistant · Chat + image generation · Free daily limits apply</div>
+          <div class="composer-warn" data-i18n="st.warn">Never share your Aadhaar number, OTP, password or bank details in chat. Chat and image text goes to an AI service to create answers; the Photo and PDF tools run only on your device.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="voice-band section-wrap">
+      <div class="voice-orb"><span>♫</span></div>
+      <div><div class="section-kicker" data-i18n="vb.kicker">SPEAK YOUR MIND</div><h2 data-i18n-html="vb.h2">Ideas move at <span>the speed of voice.</span></h2><p data-i18n="vb.p">Use your device’s speech recognition where supported. Your browser may ask for microphone permission.</p></div>
+      <button class="btn btn-outline" id="voiceCta"><span data-i18n="vb.btn">Try voice input</span> <span>↗</span></button>
+    </section>
+
+
+        <section class="section-wrap tools-section" id="tool-finder">
+      <div class="section-kicker">FIND A TOOL</div>
+      <h2>Which tool do you need? <span>Type to filter.</span></h2>
+      <input id="toolSearch" class="tool-search" type="search" placeholder="Try: photo, pdf, qr, money, text..." autocomplete="off">
+      <p class="quick-hint" id="toolSearchMsg" aria-live="polite"></p>
+    </section>
+
+    <section class="section-wrap tools-section" id="photo-tools">
+      <div class="section-kicker" data-i18n="pt.kicker">DEVICE-ONLY TOOLS</div>
+      <h2 data-i18n-html="pt.h2">Photo tools. <span>Your files stay on your device.</span></h2>
+      <p class="tools-note" data-i18n="pt.note">Everything here runs inside your browser. No photo is uploaded to any server. For government forms, always check that form's exact size and format rules first.</p>
+      <div class="tools-grid">
+        <article class="feature-card tool-card" id="tool-photo-compress">
+          <div class="feature-icon">⛶</div><div class="card-number" data-i18n="pt.c1num">PHOTO / SIZE</div>
+          <h3 data-i18n="pt.c1h">Compress to target KB</h3>
+          <p data-i18n="pt.c1p">Shrink a JPG/PNG photo to a target file size, like 50KB for online forms.</p>
+          <label class="tool-label btn btn-outline" for="cmpFile" id="cmpFileLabel" data-i18n="pt.c1file">Choose photo</label>
+          <input type="file" id="cmpFile" accept="image/*" class="file-hidden">
+          <div class="tool-row">
+            <label data-i18n="pt.c1kb">Target KB</label>
+            <input type="number" id="cmpKB" value="50" min="10" max="2000">
+            <label data-i18n="pt.c1dim">Max size (px)</label>
+            <input type="number" id="cmpDim" value="1200" min="200" max="4000">
+          </div>
+          <button class="btn btn-gold" id="cmpGo" type="button" data-i18n="pt.c1go">Compress</button>
+          <div class="tool-result" id="cmpOut" aria-live="polite"></div>
+        </article>
+        <article class="feature-card tool-card" id="tool-passport">
+          <div class="feature-icon">✧</div><div class="card-number" data-i18n="pt.c2num">PHOTO / ID</div>
+          <h3 data-i18n="pt.c2h">Passport-size photo</h3>
+          <p data-i18n="pt.c2p">Crop any photo to a standard ID size. Check the exact size your form asks for.</p>
+          <label class="tool-label btn btn-outline" for="ppFile" id="ppFileLabel" data-i18n="pt.c2file">Choose photo</label>
+          <input type="file" id="ppFile" accept="image/*" class="file-hidden">
+          <div class="tool-row">
+            <label data-i18n="pt.c2size">Size</label>
+            <select id="ppPreset">
+              <option value="600x600">2 x 2 inch (600x600)</option>
+              <option value="413x531">3.5 x 4.5 cm (413x531)</option>
+            </select>
+            <label data-i18n="pt.c2zoom">Zoom</label>
+            <input type="range" id="ppZoom" min="100" max="300" value="100">
+          </div>
+          <canvas id="ppCanvas" width="300" height="300" aria-label="Passport photo preview"></canvas>
+          <div class="tool-hint" data-i18n="pt.c2hint">Drag the photo to position the face inside the frame.</div>
+          <button class="btn btn-ghost" id="ppReset" type="button">Reset</button>
+          <button class="btn btn-gold" id="ppGo" type="button" data-i18n="pt.c2go">Download photo</button>
+          <div class="tool-result" id="ppOut" aria-live="polite"></div>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">✎</div><div class="card-number">PHOTO / TEXT</div>
+          <h3>Screenshot text editor</h3>
+          <p>Add new text or cover old text on your own screenshots and photos. Everything runs on your device; no upload, no AI.</p>
+          <a class="btn btn-gold" href="screenshot-editor.html">Open editor</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-wrap tools-section" id="pdf-tools">
+      <div class="section-kicker" data-i18n="pd.kicker">DEVICE-ONLY TOOLS</div>
+      <h2 data-i18n-html="pd.h2">PDF tools. <span>Your files stay on your device.</span></h2>
+      <p class="tools-note" data-i18n="pd.note">PDFs are processed in your browser and never uploaded. Password removal works only on your own PDF when you know its password - it is not a cracker. The unlocked copy is image-based, so its text is no longer selectable.</p>
+      <div class="tools-grid">
+        <article class="feature-card tool-card">
+          <div class="feature-icon">⧉</div><div class="card-number">PDF / MERGE</div>
+          <h3>Merge PDFs</h3>
+          <p>Combine two or more PDFs into one file, in the order you choose.</p>
+          <a class="btn btn-gold" href="pdf-merge.html">Open</a>
+        </article>
+        <article class="feature-card tool-card" id="tool-pdf-unlock">
+          <div class="feature-icon">✿</div><div class="card-number" data-i18n="pd.c2num">PDF / UNLOCK</div>
+          <h3 data-i18n="pd.c2h">Remove PDF password</h3>
+          <p data-i18n="pd.c2p">For your own PDF only. Enter the password you know; get an unlocked copy.</p>
+          <label class="tool-label" data-i18n="pd.c2file">Choose PDF</label>
+          <input type="file" id="ulFile" accept="application/pdf">
+          <div class="tool-row">
+            <label data-i18n="pd.c2pass">Password</label>
+            <input type="password" id="ulPass" autocomplete="off">
+          </div>
+          <button class="btn btn-gold" id="ulGo" type="button" data-i18n="pd.c2go">Unlock &amp; download</button>
+          <div class="tool-result" id="ulOut" aria-live="polite"></div>
+        </article>
+      </div>
+    </section>
+
+    
+    <section class="section-wrap tools-section" id="text-tools">
+      <div class="section-kicker">DEVICE-ONLY TOOLS</div>
+      <h2>Text &amp; password tools. <span>Made on your device.</span></h2>
+      <p class="tools-note">Everything runs inside your browser. Nothing you type here leaves your phone.</p>
+      <div class="tools-grid">
+        <article class="feature-card tool-card">
+          <div class="feature-icon">⚿</div><div class="card-number">TEXT / PASSWORD</div>
+          <h3>Password generator</h3>
+          <p>Strong random passwords in one tap. Created on your phone, never sent anywhere.</p>
+          <a class="btn btn-gold" href="password-generator.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">∑</div><div class="card-number">TEXT / COUNT</div>
+          <h3>Word counter</h3>
+          <p>Live word, character and sentence counts while you type or paste.</p>
+          <a class="btn btn-gold" href="word-counter.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">Aa</div><div class="card-number">TEXT / CASE</div>
+          <h3>Case converter</h3>
+          <p>Fix text case in one tap: UPPERCASE, lowercase, Title Case, Sentence case.</p>
+          <a class="btn btn-gold" href="case-converter.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">⌗</div><div class="card-number">TEXT / ENCODE</div>
+          <h3>Encoder tools</h3>
+          <p>Base64 and URL encode/decode, plus random UUIDs. Small utilities, one place.</p>
+          <a class="btn btn-gold" href="encoder-tools.html">Open</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-wrap tools-section" id="data-tools">
+      <div class="section-kicker">DEVICE-ONLY TOOLS</div>
+      <h2>Data &amp; image tools. <span>Made on your device.</span></h2>
+      <p class="tools-note">Everything runs inside your browser. Your photos and files never leave your phone.</p>
+      <div class="tools-grid">
+        <article class="feature-card tool-card">
+          <div class="feature-icon">{ }</div><div class="card-number">DATA / JSON</div>
+          <h3>JSON formatter</h3>
+          <p>Format, validate and minify JSON with exact error positions.</p>
+          <a class="btn btn-gold" href="json-formatter.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">⇶</div><div class="card-number">DATA / CSV</div>
+          <h3>JSON to CSV</h3>
+          <p>Turn a JSON list into a spreadsheet-ready CSV with download.</p>
+          <a class="btn btn-gold" href="json-to-csv.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">⤢</div><div class="card-number">IMAGE / SIZE</div>
+          <h3>Image resizer</h3>
+          <p>Resize JPG, PNG or WebP photos to exact pixels, on your device.</p>
+          <a class="btn btn-gold" href="image-resizer.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">✂</div><div class="card-number">IMAGE / CROP</div>
+          <h3>Image cropper</h3>
+          <p>Drag a box on your photo and keep just that part.</p>
+          <a class="btn btn-gold" href="image-cropper.html">Open</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-wrap tools-section" id="code-pdf-tools">
+      <div class="section-kicker">DEVICE-ONLY TOOLS</div>
+      <h2>Code &amp; PDF tools. <span>Made on your device.</span></h2>
+      <p class="tools-note">Everything runs inside your browser. Your files never leave your phone.</p>
+      <div class="tools-grid">
+        <article class="feature-card tool-card">
+          <div class="feature-icon">▦</div><div class="card-number">CODE / QR</div>
+          <h3>QR code generator</h3>
+          <p>Turn any link or text into a downloadable QR code.</p>
+          <a class="btn btn-gold" href="qr-generator.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">▌▍▌</div><div class="card-number">CODE / BAR</div>
+          <h3>Barcode generator</h3>
+          <p>CODE128 and EAN-13 barcodes as downloadable PNG.</p>
+          <a class="btn btn-gold" href="barcode-generator.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">✂</div><div class="card-number">PDF / SPLIT</div>
+          <h3>PDF split</h3>
+          <p>Extract the pages you need from a PDF into a new file.</p>
+          <a class="btn btn-gold" href="pdf-split.html">Open</a>
+        </article>
+        
+        <article class="feature-card tool-card">
+          <div class="feature-icon">🖻</div><div class="card-number">PDF / MAKE</div>
+          <h3>Image to PDF</h3>
+          <p>Put one or more photos into a single shareable PDF.</p>
+          <a class="btn btn-gold" href="image-to-pdf.html">Open</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-wrap tools-section" id="photo-pdf-tools">
+      <div class="section-kicker">DEVICE-ONLY TOOLS</div>
+      <h2>Photo fix &amp; PDF tools. <span>Made on your device.</span></h2>
+      <p class="tools-note">Everything runs inside your browser. Your photos and files never leave your phone.</p>
+      <div class="tools-grid">
+        <article class="feature-card tool-card">
+          <div class="feature-icon">⇄</div><div class="card-number">IMAGE / FORMAT</div>
+          <h3>Image converter</h3>
+          <p>Change photos between JPG, PNG and WebP.</p>
+          <a class="btn btn-gold" href="image-converter.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">▒</div><div class="card-number">IMAGE / HIDE</div>
+          <h3>Blur &amp; pixelate</h3>
+          <p>Make details in a photo harder to see. A visual effect, not secure redaction.</p>
+          <a class="btn btn-gold" href="blur-pixelate.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">🧹</div><div class="card-number">IMAGE / PRIVACY</div>
+          <h3>Metadata remover</h3>
+          <p>Remove EXIF location and camera data from JPEG photos.</p>
+          <a class="btn btn-gold" href="metadata-remover.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">↻</div><div class="card-number">PDF / ROTATE</div>
+          <h3>PDF rotate</h3>
+          <p>Fix PDFs that open sideways or upside down.</p>
+          <a class="btn btn-gold" href="pdf-rotate.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">🖼</div><div class="card-number">PDF / IMAGES</div>
+          <h3>PDF to images</h3>
+          <p>Turn each PDF page into a downloadable JPG.</p>
+          <a class="btn btn-gold" href="pdf-to-images.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">⇓</div><div class="card-number">PDF / SIZE</div>
+          <h3>PDF compress</h3>
+          <p>Shrink photo-heavy PDFs. Pages become images — honest tradeoff.</p>
+          <a class="btn btn-gold" href="pdf-compress.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">⌕</div><div class="card-number">IMAGE / TEXT</div>
+          <h3>OCR text extract</h3>
+          <p>Pull printed text out of a photo. First use downloads OCR files once.</p>
+          <a class="btn btn-gold" href="ocr-tool.html">Open</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-wrap tools-section" id="money-tools">
+      <div class="section-kicker">DEVICE-ONLY TOOLS</div>
+      <h2>Money tools. <span>Calculated on your device.</span></h2>
+      <p class="tools-note">Math only, not financial or tax advice. Nothing you type leaves your phone.</p>
+      <div class="tools-grid">
+        <article class="feature-card tool-card">
+          <div class="feature-icon">%</div><div class="card-number">MONEY / GST</div>
+          <h3>GST calculator</h3>
+          <p>Add or remove GST from any amount. 5, 18 or 40 percent, or your own rate.</p>
+          <a class="btn btn-gold" href="gst-calculator.html">Open</a>
+        </article>
+        <article class="feature-card tool-card">
+          <div class="feature-icon">₹</div><div class="card-number">MONEY / LOAN</div>
+          <h3>EMI calculator</h3>
+          <p>Monthly installment, total interest and total payment for standard fixed-rate loans.</p>
+          <a class="btn btn-gold" href="emi-calculator.html">Open</a>
+        </article>
+    </section>
+
+    <section class="section-wrap tools-section" id="guide">
+      <div class="section-kicker" data-i18n="gd.kicker">GUIDES</div>
+      <h2 data-i18n-html="gd.h2">Document guides. <span>The official way, simplified.</span></h2>
+      <p class="tool-note" data-i18n="gd.note">These guides only show you the way. Applications always happen on the official portal; this website does not issue any document. Fees and rules can change - this information was checked against official sources on 24 October 2026. Always re-check the current details on the relevant official site before applying.</p>
+
+      <article class="guide-card" id="guide-pan">
+        <div class="tool-num">GUIDE / PAN</div>
+        <h3>How to get your first PAN Card</h3>
+        <h4>Route 1: Instant e-PAN (free)</h4>
+        <p>A pre-login service of the Income Tax Department's e-Filing portal. For this: you must not already have a PAN, you need a valid Aadhaar and a mobile number linked to that Aadhaar, and the applicant must not be a minor.</p>
+        <ol>
+          <li>Open the e-Filing portal - click "Instant e-PAN" on the homepage</li>
+          <li>Click "Get New e-PAN" and enter your 12-digit Aadhaar number</li>
+          <li>Enter the 6-digit OTP sent to your Aadhaar-linked mobile (the OTP stays valid for 15 minutes)</li>
+          <li>Validate your Aadhaar details</li>
+          <li>Once the request is submitted, you can check the status from the same page and download the e-PAN PDF</li>
+        </ol>
+        <p>This service gives a digitally signed e-PAN in electronic format, free of cost. No physical card is sent.</p>
+        <h4>Route 2: Regular PAN application (physical card or e-PAN)</h4>
+        <p>There are two official portals: Protean e-Gov or UTIITSL.</p>
+        <ul>
+          <li>Since April 2026, Form 93 (individuals) / Form 94 (non-individual entities) applies for new PANs for Indian citizens; Form 95/96 for foreign citizens.</li>
+          <li>In paperless mode (Aadhaar e-KYC + e-Sign) you do not need to send physical documents; payment is by credit card, debit card or net banking.</li>
+          <li>Fees (on Protean's site, taxes included): paperless application with e-PAN by email only Rs 66; paperless application with physical card at an Indian address Rs 101; in the mode where physical documents are sent, e-PAN Rs 72, physical card Rs 107.</li>
+          <li>After applying, you can track the status on the same portal using the acknowledgement number.</li>
+        </ul>
+        <h4>Documents (for Form 93, from Protean's official list)</h4>
+        <ul>
+          <li>An Aadhaar card works as proof of both identity and address.</li>
+          <li>Note: Aadhaar is not accepted as proof of date of birth. For DOB proof, Protean's site lists documents such as passport, driving licence, voter ID card or a matriculation certificate/marksheet from a recognized board.</li>
+          <li>For individuals born on or after 1 October 2023, a birth certificate (municipal authority/Registrar of Births &amp; Deaths) is mandatory.</li>
+          <li>Giving the Aadhaar number in the application is mandatory (except for exempt categories).</li>
+          <li>If you want the e-PAN by email, an email ID is required.</li>
+          <li>The name on your PAN card will be printed as per Aadhaar, so the name must match Aadhaar.</li>
+        </ul>
+        <div class="guide-links">
+          <span>Official links:</span>
+          <a href="https://www.incometax.gov.in/iec/foportal" target="_blank" rel="noopener">e-Filing portal</a>
+          <a href="https://tinpan.proteantech.in/services/pan/pan-index.html" target="_blank" rel="noopener">Protean PAN</a>
+          <a href="https://www.pan.utiitsl.com/PAN/" target="_blank" rel="noopener">UTIITSL PAN</a>
+          <a href="https://tinpan.proteantech.in/services/pan/documents-form_93-form_94.html" target="_blank" rel="noopener">Documents list</a>
+        </div>
+        <div class="guide-video">
+          <span>Video (by a third-party creator, not the government):</span>
+          <a href="https://www.youtube.com/watch?v=zgXGn2tr-bk" target="_blank" rel="noopener">"2026 mein PAN Card kaise banayein? NSDL New Process 2026" (June 2026)</a>
+          <small>Always check the official site for fees or rules; the video's information may differ.</small>
+        </div>
+      </article>
+
+      <article class="guide-card" id="guide-dl">
+        <div class="tool-num">GUIDE / DRIVING LICENCE</div>
+        <h3>How to get your first Driving Licence</h3>
+        <p>A licence is made in two steps: first a Learner's Licence (LL), then the permanent Driving Licence (DL). Applications happen on the national Sarathi portal - selecting your state there is required, because the process, fees and test method can differ slightly by state.</p>
+        <h4>Age (Motor Vehicles Act, 1988, Section 4)</h4>
+        <ul>
+          <li>For a light motor vehicle such as a geared motorcycle or a car: you must have completed 18 years.</li>
+          <li>Gearless motorcycle/moped up to 50cc: 16 years, with written consent from parents/guardian.</li>
+          <li>Transport (commercial) vehicles have separate, stricter conditions; if you want that category, check its conditions on the Sarathi portal.</li>
+        </ul>
+        <h4>Step 1: Learner's Licence</h4>
+        <ul>
+          <li>Select your state on the Sarathi portal and fill Form 2.</li>
+          <li>Documents: age proof, address proof, passport size photo; for those under 40, Form 1 (self-declaration of physical fitness), for 40 or above, medical certificate Form 1A (as per the Parivahan FAQ).</li>
+          <li>The LL test is on traffic signs and rules. Many states offer an online LL test from home with Aadhaar authentication (faceless service) - Maharashtra is on the official list.</li>
+          <li>Central fees: LL Rs 150 per vehicle class + test fee Rs 50. State fees can differ; as an example, the Maharashtra Transport Department's site lists LL Rs 151 + test Rs 50.</li>
+          <li>The LL stays valid for 6 months.</li>
+        </ul>
+        <h4>Step 2: Permanent Driving Licence</h4>
+        <ul>
+          <li>Apply for the DL 30 days after getting the LL, and before the LL's validity ends.</li>
+          <li>A driving test slot is booked on the Sarathi portal; the test is taken by driving a vehicle at the RTO.</li>
+          <li>Central fees: driving test Rs 300 + DL issue Rs 200 (state smart card charges can differ; example: Maharashtra's site lists Rs 716 for the full permanent licence).</li>
+          <li>The licence is issued after passing the test. If you fail, a re-test can be taken after 7 days (Parivahan FAQ).</li>
+        </ul>
+        <div class="guide-links">
+          <span>Official links:</span>
+          <a href="https://sarathi.parivahan.gov.in" target="_blank" rel="noopener">Sarathi portal</a>
+          <a href="https://parivahan.gov.in/en/content/licensing-related-fees-charges" target="_blank" rel="noopener">Central fees list</a>
+          <a href="https://parivahan.gov.in/en/faq/fees-payment" target="_blank" rel="noopener">Fees FAQs</a>
+          <a href="https://transport.maharashtra.gov.in/1176/License-Fees" target="_blank" rel="noopener">Maharashtra fees (example)</a>
+          <a href="https://transport.maharashtra.gov.in/1363/Sarathi-Related-Faceless-Services" target="_blank" rel="noopener">Maharashtra faceless services</a>
+        </div>
+        <div class="guide-video">
+          <span>Video (by a third-party creator, not the government):</span>
+          <a href="https://www.youtube.com/watch?v=NqVPZwtbYIU" target="_blank" rel="noopener">"How to Apply New Driving License Online 2026" - Sarkari DNA (May 2026)</a>
+          <small>Always check the official site for fees or rules; the video's information may differ.</small>
+        </div>
+      </article>
+
+      <article class="guide-card" id="guide-voter">
+        <div class="tool-num">GUIDE / VOTER ID</div>
+        <h3>How to get your first Voter ID (EPIC)</h3>
+        <h4>Who can apply (as per ECI)</h4>
+        <ul>
+          <li>Indian citizen</li>
+          <li>Has completed 18 years on the qualifying date (1 January, 1 April, 1 July or 1 October)</li>
+          <li>An ordinary resident of the constituency where registration is sought</li>
+          <li>Not already enrolled in a voter list anywhere else</li>
+        </ul>
+        <h4>What goes with Form 6 (from the current Form 6's official list)</h4>
+        <ul>
+          <li>Photo: recent passport size colour photo, 4.5cm x 3.5cm, white background.</li>
+          <li>Aadhaar details: in item 5 of Form 6, either fill in the Aadhaar number, or tick the box "I am not able to furnish my Aadhaar Number because I don't have Aadhaar Number". In other words, not having Aadhaar does not block registration.</li>
+          <li>Age proof (any one, self-attested copy): birth certificate (municipal authority/Registrar of Births &amp; Deaths), Aadhaar card, PAN card, driving licence, Class X or XII certificate from CBSE/ICSE/State board (if it has DOB), Indian passport.</li>
+          <li>Address proof (any one, self-attested copy; in the applicant's name or in the name of parents/spouse/adult child already enrolled at the same address): water/electricity/gas connection bill for that address (at least 1 year), Aadhaar card, current passbook of a nationalized/scheduled bank or post office, Indian passport, land records from the Revenue Department (Kisan Bahi), registered rent/lease deed (for tenants), registered sale deed (for own house).</li>
+          <li>If you have none of these documents, there is an "any other document" option; in such cases field verification is always done.</li>
+        </ul>
+        <h4>Steps (online, free)</h4>
+        <ol>
+          <li>Go to voters.eci.gov.in or use the Voter Helpline app (Android/iOS).</li>
+          <li>Create an account, log in, choose "New voter registration (Form 6)".</li>
+          <li>Fill in the details, upload photo and documents, and submit.</li>
+          <li>Save the application reference number - status is tracked with it.</li>
+          <li>A Booth Level Officer (BLO) may verify the address, so keep documents ready.</li>
+          <li>After approval, the e-EPIC (digital voter card) is downloaded from voters.eci.gov.in; the physical EPIC is sent by speed post free of cost.</li>
+        </ol>
+        <ul>
+          <li>Fees: registration and EPIC are both completely free.</li>
+          <li>Status: "Track application status" on voters.eci.gov.in or the Voter Helpline app. Whether a name is already in the voter list: electoralsearch.eci.gov.in. Helpline: 1950.</li>
+          <li>Note: giving a false declaration in Form 6 is a punishable offence under law (Representation of the People Act, 1950, Section 31).</li>
+        </ul>
+        <div class="guide-links">
+          <span>Official links:</span>
+          <a href="https://voters.eci.gov.in" target="_blank" rel="noopener">Voters' portal</a>
+          <a href="https://electoralsearch.eci.gov.in" target="_blank" rel="noopener">Electoral search</a>
+        </div>
+        <div class="guide-video">
+          <span>Video (by a third-party creator, not the government):</span>
+          <a href="https://www.youtube.com/watch?v=azNwOCld0lk" target="_blank" rel="noopener">"New Voter ID Card Apply Online 2025 (with eSign)" - Raj Techvision (October 2025)</a>
+          <small>Confirm the process on the official portal; the video's information may differ.</small>
+        </div>
+      </article>
+
+
+      <article class="guide-card" id="guide-aadhaar">
+        <div class="tool-num">GUIDE / AADHAAR</div>
+        <h3>How to get Aadhaar (new enrolment)</h3>
+        <p>Aadhaar enrolment is free of cost, but it is not fully online: your photo, fingerprints and iris scan must be captured in person. You can go to any authorized Aadhaar enrolment centre or Aadhaar Seva Kendra anywhere in India.</p>
+        <h4>Steps</h4>
+        <ol>
+          <li>Optional but useful: book a free appointment at bookappointment.uidai.gov.in (one person can book up to 2 appointments a month). Walk-in also works at centres.</li>
+          <li>Carry a Proof of Identity and a Proof of Address. UIDAI accepts a wide range: voter ID, passport, driving licence, ration card; address proofs also include recent electricity/water/landline bills. The full list is on the UIDAI site. If someone has no documents, a Head of Family who already has Aadhaar can introduce other family members.</li>
+          <li>At the centre, the enrolment form is filled, your details and biometrics are captured, and you get an acknowledgement slip with your Enrolment ID (EID). Keep this slip safe - status is checked with it.</li>
+          <li>The Aadhaar letter comes by post. Once generated, the e-Aadhaar PDF can also be downloaded from the UIDAI website.</li>
+        </ol>
+        <h4>Children</h4>
+        <ul>
+          <li>Children of any age, including newborns, can be enrolled. For children below 5, no fingerprints/iris are taken; the child's Aadhaar is linked to a parent's/guardian's Aadhaar.</li>
+          <li>Two mandatory biometric updates are needed - at age 5 and again at age 15 - and these updates are free.</li>
+        </ul>
+        <h4>Already have Aadhaar? Updates are a different process</h4>
+        <ul>
+          <li>Document (identity/address proof) update: Rs 75 at an Aadhaar centre; free on the myAadhaar portal till 14 June 2027 (as listed on UIDAI's Aadhaar Seva Kendra page, checked 25 October 2026).</li>
+          <li>Enrolment is free. If anyone charges you for new enrolment, you can complain on UIDAI's toll-free helpline 1947.</li>
+        </ul>
+        <div class="guide-links">
+          <span>Official links:</span>
+          <a href="https://uidai.gov.in/en/aadhaar-enrolment" target="_blank" rel="noopener">UIDAI enrolment</a>
+          <a href="https://bookappointment.uidai.gov.in" target="_blank" rel="noopener">Book appointment</a>
+          <a href="https://myaadhaar.uidai.gov.in" target="_blank" rel="noopener">myAadhaar portal</a>
+        </div>
+        <div class="guide-video">
+          <span>Video (official, from UIDAI's own website):</span>
+          <a href="https://uidai.gov.in/en/media-resources/resources/videos/11247-enrol-for-aadhaar-anywhere-in-india.html" target="_blank" rel="noopener">"Enrol for Aadhaar anywhere in India" - UIDAI</a>
+          <small>This video plays on UIDAI's official site.</small>
+        </div>
+      </article>
+
+      <article class="guide-card" id="guide-birth">
+        <div class="tool-num">GUIDE / BIRTH CERTIFICATE</div>
+        <h3>How to register a birth and get the certificate</h3>
+        <p>Under the Registration of Births and Deaths Act, 1969, every birth must be registered with the local Registrar - the municipal corporation/council in towns, or the Gram Panchayat in villages. Registration within 21 days of the birth is free. In most hospitals the hospital itself reports the birth; confirm this and collect the birth report.</p>
+        <h4>Steps</h4>
+        <ol>
+          <li>Get the birth report from the hospital. For a home birth, the family informs the local Registrar.</li>
+          <li>Fill the birth registration form with your local Registrar. Many states and cities let you apply online on the national Civil Registration System (CRS) portal or on your state/municipal portal - but the exact route differs by state and local body, so check your own locality's process. There is no single nationwide online application for every area.</li>
+          <li>After registration, collect the certificate from the Registrar's office; in many areas it can also be downloaded online through the CRS portal.</li>
+        </ol>
+        <h4>If the 21-day window has passed (Section 13 of the Act)</h4>
+        <ul>
+          <li>Within 30 days: registration with a late fee.</li>
+          <li>30 days to 1 year: written permission of the District Registrar or the prescribed authority, a late fee, and a self-attested document.</li>
+          <li>After 1 year: only on an order of the District Magistrate, Sub-Divisional Magistrate or an authorized Executive Magistrate, with a fee.</li>
+          <li>Late fees and the exact process vary by state.</li>
+        </ul>
+        <h4>Documents usually asked</h4>
+        <ul>
+          <li>The hospital birth report, parents' identity and address proofs, and the marriage certificate where applicable. The exact list varies by local body, so confirm with your Registrar.</li>
+        </ul>
+        <div class="guide-links">
+          <span>Official links:</span>
+          <a href="https://dc.crsorgi.gov.in/crs/home" target="_blank" rel="noopener">CRS portal</a>
+          <a href="https://crsorgi.gov.in" target="_blank" rel="noopener">Civil Registration System</a>
+        </div>
+        <div class="guide-video">
+          <span>Video (by a third-party creator, not the government):</span>
+          <a href="https://www.youtube.com/watch?v=h5r8PxQ_-xY" target="_blank" rel="noopener">"Birth Certificate Online 2025 | Janam praman kaise banaye" - SarkariDNA</a>
+          <small>Online application routes differ by state; confirm the process on the official portal for your area.</small>
+        </div>
+      </article>
+
+      <article class="guide-card" id="guide-ayushman">
+        <div class="tool-num">GUIDE / AYUSHMAN CARD</div>
+        <h3>Ayushman card (PM-JAY): check eligibility first</h3>
+        <p>Ayushman Bharat PM-JAY gives health cover of Rs 5 lakh per family per year for hospital treatment to poor and vulnerable families identified through the SECC 2011 deprivation/occupation criteria; many states have expanded coverage to more groups. Not everyone qualifies - checking eligibility is the first step.</p>
+        <h4>Steps</h4>
+        <ol>
+          <li>Check eligibility on the beneficiary portal beneficiary.nha.gov.in (mobile + OTP login), or in the Ayushman App, or call the helpline 14555, or ask at the nearest empanelled hospital or Common Service Centre (CSC).</li>
+          <li>If eligible, complete the Aadhaar-based eKYC at the hospital, CSC or through the app.</li>
+          <li>The Ayushman card is generated and can be downloaded. Treatment at empanelled hospitals is cashless.</li>
+        </ol>
+        <h4>Keep in mind</h4>
+        <ul>
+          <li>The card is completely free. No fee, no agent needed. Do not pay anyone who offers to make an Ayushman card for money.</li>
+          <li>ABHA is different: the ABHA number (Ayushman Bharat Health Account) is a voluntary digital health ID for your health records. It is not insurance and gives no treatment cover; making an ABHA ID does not make you eligible for Ayushman benefits.</li>
+        </ul>
+        <div class="guide-links">
+          <span>Official links:</span>
+          <a href="https://beneficiary.nha.gov.in" target="_blank" rel="noopener">Beneficiary portal</a>
+          <a href="https://nha.gov.in/PM-JAY" target="_blank" rel="noopener">About PM-JAY</a>
+          <a href="https://pmjay.gov.in" target="_blank" rel="noopener">PM-JAY site</a>
+        </div>
+        <div class="guide-video">
+          <span>Video (official channel - Ayushman Bharat, Uttar Pradesh):</span>
+          <a href="https://www.youtube.com/watch?v=Pc_AX68KciA" target="_blank" rel="noopener">"Ayushman Bharat yojana ki patrata jaanchein aur card banana sunishchit karein"</a>
+          <small>The process shown is the national PM-JAY one; eligibility rules in your state may add more groups.</small>
+        </div>
+      </article>
+
+      <div class="guide-cautions">
+        <h4>Important safety tips</h4>
+        <ul>
+          <li>Apply only on official websites. The links given in this guide are the official ones - alongside government sites (like incometax.gov.in, parivahan.gov.in, voters.eci.gov.in), for PAN these include the government-appointed agencies Protean e-Gov (tinpan.proteantech.in) and UTIITSL (pan.utiitsl.com).</li>
+          <li>Beware of fake sites with similar names in search results or ads; check the URL carefully.</li>
+          <li>Never give your Aadhaar number, OTP or photos of your documents to any agent or stranger.</li>
+          <li>This website only provides information; the government issues the document.</li>
+        </ul>
+        <div class="guide-video">
+          <span>Videos (official - Indian Cybercrime Coordination Centre, MHA):</span>
+          <a href="https://cybercrime.gov.in/webform/video-category.aspx" target="_blank" rel="noopener">Official cyber-safety awareness videos (cybercrime.gov.in)</a>
+          <small>These play on the government's own cybercrime portal.</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrap feedback-section" id="feedback">
+      <div class="section-kicker">WE LISTEN</div>
+      <h2>Shape what SKY builds <span>next.</span></h2>
+      <p class="feedback-lead">An idea, a bug, or a tool you wish existed - tell us.</p>
+      <div class="feedback-card">
+        <form id="feedbackForm">
+          <input type="text" id="fbName" class="feedback-input" placeholder="Your name (optional)" autocomplete="name" maxlength="60">
+          <textarea id="fbMsg" class="feedback-input" rows="4" placeholder="Your feedback or idea..." maxlength="2000" required></textarea>
+          <button class="btn btn-gold" type="submit">Send feedback</button>
+          <p class="feedback-note">Opens your mail app with the message ready - nothing is uploaded or stored on this site.</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="final-cta section-wrap">
+      <div class="cta-stars">✦ &nbsp; ✧ &nbsp; ✦</div><div class="section-kicker" data-i18n="cta.kicker">YOUR NEXT CHAPTER STARTS HERE</div>
+      <h2 data-i18n-html="cta.h2">Build something <span>extraordinary.</span></h2>
+      <p data-i18n="cta.p">Step into your personal intelligence universe.</p>
+    </section>
+  </main>
+
+  <footer><a class="brand-mini" href="#home"><span class="mini-gem">✦</span> SKY</a><span>YOUR INTELLIGENCE. YOUR EMPIRE.</span><a href="#feedback" class="footer-feedback">Feedback</a><span>© <span id="year"></span> SKY</span></footer>
+
+  <script src="script.js"></script>
+  <script src="studio8.js"></script>
+<script src="/scroll-economy.js" defer></script>
+<dialog id="toolPicker" class="tool-picker" aria-labelledby="toolPickerTitle">
+  <div class="picker-head"><div><p class="kicker">YOUR TOOLBOX</p><h2 id="toolPickerTitle">Photo tools</h2></div><button type="button" id="closeToolPicker" class="picker-close" aria-label="Close tool list">×</button></div>
+  <p class="picker-note">Choose a tool to open it.</p>
+  <div id="toolPickerList" class="picker-list"></div>
+</dialog>
+<script src="category-tools.js" defer></script>
+<script src="tap-stars.js" defer></script>
+<script src="/spring-ui.js" defer></script>
+</body>
+</html>
