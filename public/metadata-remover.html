@@ -1,0 +1,14 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"><script src="zoom-lock.js" defer></script><meta name="theme-color" content="#08040f"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="editor.css"><link rel="stylesheet" href="text-tools.css">
+<meta name="description" content="SKY Metadata Remover - strip hidden location and camera info from photos on your device, free.">
+<title>SKY Metadata Remover</title></head>
+<body data-tool="meta">
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div><header class="topbar"><a class="brand-mini" href="index.html"><span class="mini-gem">✦</span> SKY</a><a class="backlink" href="index.html">← Back to SKY Home</a></header>
+<main class="editor-page"><div class="editor-head"><div><div class="section-kicker">SKY FREE TOOLS</div><h1>Metadata <span>Remover</span></h1><p>JPEG photos can hide your location and camera details inside (EXIF). This tool removes that EXIF block.</p></div></div>
+<div class="editor-layout"><section class="toolbox"><h2>How to use</h2><label>1. Pick a photo</label><p class="quick-hint">You see what hidden info it carries (if this browser can read it).</p><label>2. Tap Clean photo</label><label>3. Download the clean copy</label></section>
+<section class="canvas-box"><div class="canvas-top"><b>Your photo</b><span>never leaves your device</span></div><div class="canvas-wrap" style="padding:18px"><label class="tt-file" for="mtFile">📷 Choose photo</label><input id="mtFile" type="file" accept="image/*" hidden><div class="status" id="mtStatus" role="status"></div><div class="tt-out file-hidden" id="mtInfo"></div><div class="tt-row"><button id="mtGo" class="gold-action file-hidden">🧹 Clean photo</button></div><div class="tt-row"><button id="mtDl" class="gold-action file-hidden">Download clean photo</button></div></div></section></div>
+<p class="editor-footer">How it works: your photo is re-drawn into a fresh JPEG, which drops the EXIF block (location, camera, time) — verified on JPEG files. PNG and WebP are re-encoded fresh too. Detection above reads JPEG headers only; apps can add other data this tool cannot see, so check sensitive photos before sharing. Runs fully in your browser.</p></main>
+<script src="studio4.js"></script>
+<script src="/scroll-economy.js" defer></script>
+<script src="/tool-return.js" defer></script>
+<script src="/spring-ui.js" defer></script>
+</body></html>
