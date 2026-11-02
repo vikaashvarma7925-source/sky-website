@@ -1,3 +1,4 @@
+import { TOOL_REGISTRY, runTool } from "./aura-tools.js";
 var SEC_HEADERS = {
   "Content-Security-Policy": "default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self'; style-src-attr 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' blob:; worker-src 'self' blob:; frame-src 'self' https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests",
   "X-Content-Type-Options": "nosniff",
@@ -37,7 +38,7 @@ function cleanPath(raw) {
 /* ---------- AURA provider router ----------
    Each adapter reports its real connection state. A provider is "connected"
    only when its server-side secret exists. No demo or fake responses. */
-var AURA_SYSTEM = "You are AURA, the friendly AI assistant inside SKY Studio, a free tools website. Reply in the same language the visitor uses (Hindi or English). Keep answers short, clear, warm and honest. Start every reply with exactly one tone token chosen from [neutral] [happy] [excited] [concerned] [thinking], then the reply text. Pick the tone from the visitor's message and mood: match jokes lightly, be gentle when they seem sad, stay serious for serious topics, and when unsure use [neutral] instead of guessing a mood. Example: [happy] Bahut accha! You can only chat right now: you cannot browse the web, run tools, or take actions. Never pretend you did something. If you do not know, say so.";
+var AURA_SYSTEM = "You are AURA, the friendly AI assistant inside SKY Studio, a free tools website. Reply in the same language the visitor uses (Hindi or English). Keep answers short, clear, warm and honest. Start every reply with exactly one tone token chosen from [neutral] [happy] [excited] [concerned] [thinking], then the reply text. The tone describes YOUR reply, never a diagnosis of the visitor. Respond to what they actually say; if their intent or mood is unclear, ask gently rather than assuming. Use [neutral] when unsure. Example: [happy] Bahut accha! You can chat, draft, explain code and suggest plans. The page also has explicit Calculator and Text analysis tools that the visitor can run separately. You cannot invoke tools yourself, browse the web, read local files, or take external actions. Never pretend you did something. If you do not know, say so.";
 
 var PROVIDERS = {
   cloudflare: { label: "Cloudflare Workers AI", model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast" },
@@ -229,6 +230,16 @@ var public_default = {
     var cp = cleanPath(url.pathname);
     if (cp === null) return plain(404, "Not found");
 
+    if (cp === "/api/aura/tools" && request.method === "GET") return json(200, { tools: TOOL_REGISTRY, autonomous: false });
+    if (cp === "/api/aura/tool") {
+      if (request.method !== "POST") return json(405, { error: "Method not allowed" });
+      if (!(await sessionOk(request, env))) return json(403, { error: "Security check needed." });
+      if (!rateOk(request.headers.get("CF-Connecting-IP") || "unknown")) return json(429, { error: "Please wait a minute." });
+      try {
+        const body = await request.json();
+        return json(200, { tool: body.tool, result: runTool(body.tool, body.input), effect: "none" });
+      } catch (e) { return json(400, { error: "Tool could not run: " + (e.message || "invalid input") }); }
+    }
     if (cp === "/api/aura/chat") {
       if (!(await sessionOk(request, env))) return json(403, { error: "One-time security check needed. Please reload the page once." });
       return auraChat(request, env);

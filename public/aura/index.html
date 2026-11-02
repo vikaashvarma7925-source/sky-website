@@ -57,6 +57,18 @@
     </div>
   </section>
 
+  <section class="about" aria-labelledby="toolsTitle">
+    <h2 id="toolsTitle">AURA tools</h2>
+    <p class="toolnote">Choose a tool and run it explicitly. These tools do not use an AI provider, browse the web or change anything outside this page.</p>
+    <form id="toolForm">
+      <label for="toolSelect">Tool</label>
+      <select id="toolSelect"><option value="calculate">Calculator</option><option value="text_stats">Text analysis</option></select>
+      <label for="toolInput">Expression or text</label>
+      <textarea id="toolInput" maxlength="16000" rows="3" placeholder="Example: (125 + 75) / 4" required></textarea>
+      <button class="send" id="toolRun">Run tool</button>
+    </form>
+    <output id="toolResult" aria-live="polite"></output>
+  </section>
   <section class="about">
     <h2>What AURA can do today</h2>
     <ul>
@@ -72,7 +84,7 @@
     <ul>
       <li><b>Full expressions, gestures and real lip sync (your example video's biggest feature): not implemented yet.</b> This preview uses a static reference photo. It has no blinking, mouth movement or gestures.</li>
       <li><b>Emotions are voice-only today.</b> Each reply carries a tone label describing AURA's own reply (happy, concerned, thinking...) and the voice adjusts a little; her face does not change expression yet. The label describes her answer, never a guess about your mood.</li>
-      <li><b>No agent actions yet.</b> She cannot browse the web, use files, or run tools today. Those abilities are planned, with your confirmation required before any real action.</li>
+      <li><b>No agent actions yet.</b> She cannot browse the web, read files or control external apps. The explicit calculator and text-analysis tools above work, but she cannot invoke them autonomously. External actions are disabled, not merely hidden behind a confirmation button.</li>
       <li><b>Voice quality</b> depends on the browser's built-in voices - standard system voices, not a studio voice or a match verified against your reference.</li>
     </ul>
   </section>

@@ -143,6 +143,18 @@ function ensureSession(force) {
   return sessionPending;
 }
 
+/* ---------- explicit safe tools ---------- */
+$("toolForm").addEventListener("submit", async (e) => {
+  e.preventDefault();const btn=$("toolRun"),out=$("toolResult");btn.disabled=true;out.textContent="Checking...";
+  try {
+    if (!(await ensureSession())) throw Error("Security check could not finish. Reload and try again.");
+    out.textContent="Running...";
+    const r=await fetch("/api/aura/tool",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({tool:$("toolSelect").value,input:$("toolInput").value})});
+    const d=await r.json();if(!r.ok)throw Error(d.error||"Tool unavailable.");
+    out.textContent=d.tool==="calculate"?"Result: "+d.result.value:`${d.result.words} words · ${d.result.characters} characters · ${d.result.lines} lines`;
+  }catch(err){out.textContent=err.message;}finally{btn.disabled=false;}
+});
+
 /* ---------- speech out ---------- */
 const synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
 const ttsToggle = $("ttsToggle"), voiceSel = $("voiceSel"), rateCtl = $("rateCtl");
@@ -348,7 +360,7 @@ function streamText(text) {
 
 function splitTone(text) {
   const m = text.match(/^\[(\w[\w-]*)\]\s*/);
-  const TONES = { happy: 1, calm: 1, concerned: 1, thinking: 1, playful: 1, apologetic: 1 };
+  const TONES = { neutral: 1, excited: 1, happy: 1, calm: 1, concerned: 1, thinking: 1, playful: 1, apologetic: 1 };
   if (m && TONES[m[1]]) return { tone: m[1], text: text.slice(m[0].length) };
   return { tone: null, text };
 }
