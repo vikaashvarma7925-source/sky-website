@@ -2813,7 +2813,7 @@ var Kn = "1.31.1";
 }
 Object.defineProperty(Y.versions, "web", { value: Kn, enumerable: true });
 
-// ../../aura-voice-local/voice-lab/vendor/phonemizer/dist/wasm/espeak-ng.mjs
+// ../../sky-aura/public/aura/voice-lab/vendor/phonemizer/dist/wasm/espeak-ng.mjs
 var createEspeakModule = /* @__PURE__ */ (() => {
   return (async function(moduleArg = {}) {
     var moduleRtn;
@@ -5576,7 +5576,7 @@ var createEspeakModule = /* @__PURE__ */ (() => {
 })();
 var espeak_ng_default = createEspeakModule;
 
-// ../../aura-voice-local/voice-lab/vendor/phonemizer/src/constants.mjs
+// ../../sky-aura/public/aura/voice-lab/vendor/phonemizer/src/constants.mjs
 var espeakCHARS_AUTO = 0;
 var espeakPHONEMES_IPA = 2;
 var AUDIO_OUTPUT_SYNCHRONOUS = 2;
@@ -5604,7 +5604,7 @@ function decodeTerminator(terminator) {
   };
 }
 
-// ../../aura-voice-local/voice-lab/vendor/phonemizer/src/espeak.mjs
+// ../../sky-aura/public/aura/voice-lab/vendor/phonemizer/src/espeak.mjs
 var ESPEAK_DATA_VIRTUAL_PATH = "/espeak-ng-data";
 var isNode = typeof globalThis.process?.versions?.node === "string" && globalThis.process?.type !== "renderer";
 var Module = null;
@@ -5718,7 +5718,7 @@ function getPhonemes(text) {
   return results;
 }
 
-// ../../aura-voice-local/voice-lab/source.js
+// ../../sky-aura/public/aura/voice-lab/source.js
 Y.wasm.numThreads = 1;
 Y.wasm.wasmPaths = "./vendor/";
 window.auraVoiceStop = () => {
@@ -5891,6 +5891,7 @@ document.getElementById("chatForm").onsubmit = async (e) => {
     if (!answer) throw Error("No answer received.");
     lastReply = answer.replace(/^\[\w+\]\s*/, "");
     reply.textContent = lastReply;
+    window.dispatchEvent(new CustomEvent("voice-reply", { detail: { tone: (answer.match(/^\[(\w+)\]/) || [])[1] || "neutral" } }));
     turns.push({ role: "assistant", content: lastReply });
     $("text").value = lastReply.slice(0, 300);
     $("lang").value = /[\u0900-\u097f]/.test(lastReply) ? "hi" : "en";
@@ -5913,6 +5914,96 @@ if (window.turnstile) window.auraGateReady();
 $("mute").onchange = () => {
   if ($("mute").checked) window.auraVoiceStop();
 };
+var face = document.getElementById("face");
+var faceToggle = document.getElementById("faceToggle");
+var faceNote = document.getElementById("faceNote");
+var faceFrames = { mouth: [], blink: [], happy: [] };
+var faceLoaded = false;
+var faceTick = null;
+var blinkTick = null;
+var faceRun = 0;
+var reduced = matchMedia("(prefers-reduced-motion: reduce)");
+function faceStop() {
+  faceRun++;
+  clearTimeout(faceTick);
+  clearTimeout(blinkTick);
+  face.src = "../talk/base.jpg";
+}
+function faceCycle(name, loop = false) {
+  faceStop();
+  if (!faceToggle.checked || !faceLoaded || reduced.matches || document.hidden) return;
+  let i = 0;
+  const run = faceRun;
+  const step = () => {
+    if (run !== faceRun || document.hidden || !faceToggle.checked) return;
+    face.src = faceFrames[name][i++].src;
+    if (i < faceFrames[name].length || loop) {
+      i %= faceFrames[name].length;
+      faceTick = setTimeout(step, name === "blink" ? 90 : 180);
+    } else faceTick = setTimeout(faceStop, 350);
+  };
+  step();
+}
+function scheduleBlink() {
+  clearTimeout(blinkTick);
+  if (!faceToggle.checked || !faceLoaded || reduced.matches || document.hidden) return;
+  blinkTick = setTimeout(() => {
+    if (!audio || audio.paused) faceCycle("blink");
+    scheduleBlink();
+  }, 7e3);
+}
+faceToggle.onchange = async () => {
+  faceStop();
+  if (!faceToggle.checked) {
+    faceNote.textContent = "Original photo. Face clips off.";
+    return;
+  }
+  if (reduced.matches) {
+    faceNote.textContent = "Reduced motion is on. Static photo retained.";
+    return;
+  }
+  try {
+    if (!faceLoaded) {
+      const promises = [];
+      for (const name of ["mouth", "blink"]) for (let i = 0; i < 7; i++) {
+        const im = new Image();
+        im.src = `../lab/${name}-${i}.jpg`;
+        faceFrames[name].push(im);
+        promises.push(im.decode());
+      }
+      const h = new Image();
+      h.src = "../lab/happy.jpg";
+      faceFrames.happy = [h];
+      promises.push(h.decode());
+      await Promise.all(promises);
+      faceLoaded = true;
+    }
+    faceNote.textContent = "Reconstructed 2D face. Body static. Basic mouth cycle follows actual audio, not phoneme lip sync.";
+    scheduleBlink();
+  } catch {
+    faceToggle.checked = false;
+    faceStop();
+    faceNote.textContent = "Face clips unavailable. Original retained.";
+  }
+};
+$("audio").addEventListener("playing", () => {
+  faceCycle("mouth", true);
+});
+for (const event of ["pause", "ended", "error", "waiting"]) $("audio").addEventListener(event, () => {
+  faceStop();
+  scheduleBlink();
+});
+window.addEventListener("voice-reply", (e) => {
+  if (["happy", "excited", "playful"].includes(e.detail.tone)) faceCycle("happy");
+});
+document.addEventListener("visibilitychange", () => {
+  faceStop();
+  if (!document.hidden) scheduleBlink();
+});
+reduced.addEventListener("change", () => {
+  faceStop();
+  scheduleBlink();
+});
 /*! Bundled license information:
 
 onnxruntime-web/dist/ort.wasm.bundle.min.mjs:
