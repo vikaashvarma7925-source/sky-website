@@ -12,6 +12,7 @@ var AURA_PERMISSIONS = "camera=(), geolocation=(), microphone=(self)";
 function wrap(resp, path) {
   var r = new Response(resp.body, resp);
   for (var k of Object.keys(SEC_HEADERS)) r.headers.set(k, SEC_HEADERS[k]);
+  if (path && path.startsWith('/aura/voice-lab/')) r.headers.set('Content-Security-Policy', SEC_HEADERS['Content-Security-Policy'].replace("script-src 'self'", "script-src 'self' 'wasm-unsafe-eval'"));
   if (path && path.indexOf("/aura/") === 0) r.headers.set("Permissions-Policy", AURA_PERMISSIONS);
   return r;
 }
@@ -31,7 +32,7 @@ function cleanPath(raw) {
     const s = segs[i];
     if (s === ".." || s === "." || s.charAt(0) === "." || s.charAt(0) === "_") return null;
   }
-  if (/\.(map|md|sh|toml|jsonc?|env|bak|orig|txt\.gz)$/i.test(p) && p !== "/robots.txt") return null;
+  if (/\.(map|md|sh|toml|jsonc?|env|bak|orig|txt\.gz)$/i.test(p) && !/^\/aura\/voice-lab\/(?:models\/tokenizer\.json|vendor\/phonemizer\/data\/manifest\.json)$/.test(p) && p !== "/robots.txt") return null;
   return p;
 }
 
