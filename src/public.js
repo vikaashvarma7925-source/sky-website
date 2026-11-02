@@ -1,33 +1,29 @@
-var __defProp = Object.defineProperty;
-var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
-
-// src/public.js
 var SEC_HEADERS = {
-  "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self'; style-src-attr 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; worker-src 'self' blob:; frame-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests",
+  "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self'; style-src-attr 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' blob:; worker-src 'self' blob:; frame-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests",
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "SAMEORIGIN",
   "Referrer-Policy": "strict-origin-when-cross-origin",
   "Permissions-Policy": "camera=(), geolocation=(), microphone=()",
   "Strict-Transport-Security": "max-age=63072000; includeSubDomains"
 };
-function wrap(resp) {
+var AURA_PERMISSIONS = "camera=(), geolocation=(), microphone=(self)";
+
+function wrap(resp, path) {
   var r = new Response(resp.body, resp);
   for (var k of Object.keys(SEC_HEADERS)) r.headers.set(k, SEC_HEADERS[k]);
+  if (path && path.indexOf("/aura/") === 0) r.headers.set("Permissions-Policy", AURA_PERMISSIONS);
   return r;
 }
-__name(wrap, "wrap");
 function plain(status, text, allow) {
   return wrap(new Response(text, { status, headers: Object.assign({ "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" }, allow ? { Allow: allow } : {}) }));
 }
-__name(plain, "plain");
+function json(status, obj) {
+  return wrap(new Response(JSON.stringify(obj), { status, headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" } }));
+}
 function cleanPath(raw) {
   let p = raw;
   if (/%(2e|2f|5c|00|25)/i.test(p) || p.indexOf("\\") >= 0 || p.indexOf("\0") >= 0) return null;
-  try {
-    p = decodeURIComponent(p);
-  } catch (e) {
-    return null;
-  }
+  try { p = decodeURIComponent(p); } catch (e) { return null; }
   if (p.charAt(0) !== "/" || p.indexOf("//") >= 0) return null;
   const segs = p.split("/");
   for (let i = 1; i < segs.length; i++) {
@@ -37,18 +33,146 @@ function cleanPath(raw) {
   if (/\.(map|md|sh|toml|jsonc?|env|bak|orig|txt\.gz)$/i.test(p) && p !== "/robots.txt") return null;
   return p;
 }
-__name(cleanPath, "cleanPath");
+
+/* ---------- AURA provider router ----------
+   Each adapter reports its real connection state. A provider is "connected"
+   only when its server-side secret exists. No demo or fake responses. */
+var AURA_SYSTEM = "You are AURA, the friendly AI assistant inside SKY Studio, a free tools website. Reply in the same language the visitor uses (Hindi or English). Keep answers short, clear and honest. You can only chat right now: you cannot browse the web, run tools, or take actions. Never pretend you did something. If you do not know, say so.";
+
+var PROVIDERS = {
+  cloudflare: { label: "Cloudflare Workers AI", model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast" },
+  groq:       { label: "Groq",                  model: "llama-3.1-8b-instant",  secret: "GROQ_API_KEY" },
+  gemini:     { label: "Google Gemini",         model: "gemini-2.0-flash",      secret: "GEMINI_API_KEY" },
+  openrouter: { label: "OpenRouter (free)",     model: "meta-llama/llama-3.1-8b-instruct:free", secret: "OPENROUTER_API_KEY" },
+  mistral:    { label: "Mistral",               model: "mistral-small-latest",  secret: "MISTRAL_API_KEY" }
+};
+
+function providerStatus(env) {
+  var out = {};
+  for (var id of Object.keys(PROVIDERS)) {
+    var p = PROVIDERS[id];
+    var connected = id === "cloudflare" ? !!env.AI : !!env[p.secret];
+    out[id] = { label: p.label, model: p.model, connected: connected };
+  }
+  return out;
+}
+
+/* naive per-IP rate limiter: best-effort, per isolate */
+var BUCKETS = {};
+function rateOk(ip) {
+  var now = Date.now(), b = BUCKETS[ip];
+  if (!b || now - b.start > 60000) { BUCKETS[ip] = { start: now, count: 1 }; return true; }
+  b.count++;
+  return b.count <= 20;
+}
+
+function withTimeout(promise, ms, onTimeout) {
+  return Promise.race([promise, new Promise(function (_, rej) { setTimeout(function () { rej(new Error(onTimeout)); }, ms); })]);
+}
+
+async function callOpenAICompatible(url, key, model, messages) {
+  var r = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Authorization": "Bearer " + key },
+    body: JSON.stringify({ model: model, messages: messages, max_tokens: 600, temperature: 0.7 })
+  });
+  if (!r.ok) throw new Error("provider_http_" + r.status);
+  var j = await r.json();
+  var t = j && j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
+  if (!t) throw new Error("provider_empty");
+  return t;
+}
+
+async function callGemini(key, model, messages) {
+  var contents = messages.filter(function (m) { return m.role !== "system"; }).map(function (m) {
+    return { role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] };
+  });
+  var sys = messages.find(function (m) { return m.role === "system"; });
+  var body = { contents: contents };
+  if (sys) body.systemInstruction = { parts: [{ text: sys.content }] };
+  var r = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+    body: JSON.stringify(body)
+  });
+  if (!r.ok) throw new Error("provider_http_" + r.status);
+  var j = await r.json();
+  var t = j && j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts && j.candidates[0].content.parts[0] && j.candidates[0].content.parts[0].text;
+  if (!t) throw new Error("provider_empty");
+  return t;
+}
+
+async function auraChat(request, env) {
+  if (request.method !== "POST") return json(405, { error: "Method not allowed" });
+  var ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  if (!rateOk(ip)) return json(429, { error: "Too many messages. Please wait a minute and try again." });
+
+  var body;
+  try { body = await request.json(); } catch (e) { return json(400, { error: "Invalid request." }); }
+  if (!body || !Array.isArray(body.messages)) return json(400, { error: "Invalid request." });
+
+  var msgs = body.messages.slice(-20);
+  var total = 0;
+  for (var m of msgs) {
+    if (!m || typeof m.content !== "string" || (m.role !== "user" && m.role !== "assistant")) return json(400, { error: "Invalid request." });
+    if (m.content.length > 2000) return json(400, { error: "Message too long (max 2000 characters)." });
+    total += m.content.length;
+  }
+  if (msgs.length === 0 || msgs[msgs.length - 1].role !== "user") return json(400, { error: "Invalid request." });
+  if (total > 16000) return json(400, { error: "Conversation too long. Please clear history and start fresh." });
+
+  var pid = typeof body.provider === "string" ? body.provider : "cloudflare";
+  var p = PROVIDERS[pid];
+  if (!p) return json(400, { error: "Unknown provider." });
+
+  var full = [{ role: "system", content: AURA_SYSTEM }].concat(msgs);
+  var reply;
+  try {
+    if (pid === "cloudflare") {
+      if (!env.AI) return json(503, { error: "This AI provider is not connected yet." });
+      var models = [p.model, "@cf/meta/llama-3.2-3b-instruct"];
+      for (var mi = 0; mi < models.length; mi++) {
+        try {
+          var out = await withTimeout(env.AI.run(models[mi], { messages: full, max_tokens: 600 }), 30000, "ai_timeout");
+          reply = out && out.response;
+          if (reply) { if (models[mi] !== p.model) p = Object.assign({}, p, { model: models[mi] }); break; }
+        } catch (e3) { if (mi === models.length - 1) throw e3; }
+      }
+      if (!reply) throw new Error("provider_empty");
+    } else {
+      var key = env[p.secret];
+      if (!key) return json(503, { error: p.label + " is not connected yet. The site owner has not added its key." });
+      if (pid === "gemini") reply = await withTimeout(callGemini(key, p.model, full), 30000, "ai_timeout");
+      else if (pid === "groq") reply = await withTimeout(callOpenAICompatible("https://api.groq.com/openai/v1/chat/completions", key, p.model, full), 30000, "ai_timeout");
+      else if (pid === "openrouter") reply = await withTimeout(callOpenAICompatible("https://openrouter.ai/api/v1/chat/completions", key, p.model, full), 30000, "ai_timeout");
+      else reply = await withTimeout(callOpenAICompatible("https://api.mistral.ai/v1/chat/completions", key, p.model, full), 30000, "ai_timeout");
+    }
+  } catch (e) {
+    var msg = "AURA could not get an answer right now. Please try again in a moment.";
+    if (e && e.message === "ai_timeout") msg = "AURA took too long to answer. Please try again.";
+    else if (e && /^provider_http_429/.test(e.message)) msg = "The free AI limit was reached. Please try again in a little while.";
+    else if (e && /^provider_http_5/.test(e.message)) msg = "The AI provider is temporarily unavailable. Please try again.";
+    return json(502, { error: msg });
+  }
+  return json(200, { reply: reply, provider: pid, model: p.model });
+}
+
 var public_default = {
   async fetch(request, env) {
-    if (request.method !== "GET" && request.method !== "HEAD") return plain(405, "Method not allowed", "GET, HEAD");
     var url = new URL(request.url);
     var cp = cleanPath(url.pathname);
-    if (cp === null || /^\/(api|admin)(\/|$)/i.test(cp)) return plain(404, "Not found");
+    if (cp === null) return plain(404, "Not found");
+
+    if (cp === "/api/aura/chat") return auraChat(request, env);
+    if (cp === "/api/aura/status") {
+      if (request.method !== "GET" && request.method !== "HEAD") return json(405, { error: "Method not allowed" });
+      return json(200, { providers: providerStatus(env) });
+    }
+
+    if (request.method !== "GET" && request.method !== "HEAD") return plain(405, "Method not allowed", "GET, HEAD");
+    if (/^\/(api|admin)(\/|$)/i.test(cp)) return plain(404, "Not found");
     url.pathname = cp;
-    return wrap(await env.ASSETS.fetch(new Request(url.toString(), request)));
+    return wrap(await env.ASSETS.fetch(new Request(url.toString(), request)), cp);
   }
 };
-export {
-  public_default as default
-};
-//# sourceMappingURL=public.js.map
+export { public_default as default };
