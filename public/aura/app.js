@@ -6,7 +6,6 @@ const logEl = $("log"), inputEl = $("input"), sendBtn = $("sendBtn"), form = $("
 const statusEl = $("status"), stopBtn = $("stopBtn");
 const providerSel = $("provider"), provState = $("provState"), provList = $("provList");
 const stage = $("stage"), statePill = $("statePill");
-const talkImg = $("talkImg");
 
 /* ---------- character view: her real reference photo only ----------
    Face animation is under development and intentionally not shown until it
@@ -40,19 +39,13 @@ function saveHistory() {
 
 function bubble(role, text, meta) {
   const b = document.createElement("div");
-  b.className = "bubble " + role;
+  b.className = "msg " + (role === "assistant" ? "aura" : "user");
   if (role === "user") b.textContent = text;
   else {
     const body = document.createElement("div");
     body.className = "md";
     b.appendChild(body);
     if (text) body.innerHTML = md(text);
-    if (meta) {
-      const m = document.createElement("span");
-      m.className = "meta";
-      m.textContent = meta;
-      b.appendChild(m);
-    }
     b._md = body;
   }
   logEl.appendChild(b);
@@ -79,7 +72,7 @@ function greet() {
   bubble("assistant",
     "Namaste! Main **AURA** hoon - SKY Studio ki AI assistant.\n" +
     "Hindi ya English - jo bhi comfortable lage, poochhiye. SKY Studio ke tools, ideas, ya kuch bhi aur!\n" +
-    "_Aap yeh chat voice mein bhi kar sakte ho - mic button se._");
+    "Aap yeh chat voice mein bhi kar sakte ho - mic button se.");
 }
 
 /* ---------- providers ---------- */
@@ -306,7 +299,7 @@ form.addEventListener("submit", async (e) => {
             if (d.error) { gotError = d.error || "Stream error"; continue; }
             if (d.response || d.delta) {
               acc += (d.response || d.delta);
-              ab._md.innerHTML = md(acc);
+              ab._md.innerHTML = md(streamText(acc));
               logEl.scrollTop = logEl.scrollHeight;
             }
           } catch (err) { /* partial chunk */ }
@@ -340,17 +333,18 @@ form.addEventListener("submit", async (e) => {
   }
   const sp = ab._serverTone ? { tone: ab._serverTone, text: acc } : splitTone(acc);
   ab._md.innerHTML = md(sp.text);
-  const meta = model || "AURA";
-  const m = document.createElement("span");
-  m.className = "meta";
-  m.textContent = sp.tone ? meta + " \u00B7 " + sp.tone + " (reply tone)" : meta;
-  ab.appendChild(m);
-  history.push({ role: "assistant", text: sp.text, meta: m.textContent });
+  history.push({ role: "assistant", text: sp.text });
   saveHistory();
   if (gotError) setStatus(gotError, "warn");
-  if (!ttsToggle.checked) setState("idle");
+  setState("idle");
   speak(sp.text, { tone: sp.tone });
 });
+
+function streamText(text) {
+  // Do not expose the model's control prefix while it is still arriving.
+  if (text.startsWith("[") && !text.includes("]") && text.length < 24) return "";
+  return splitTone(text).text;
+}
 
 function splitTone(text) {
   const m = text.match(/^\[(\w[\w-]*)\]\s*/);

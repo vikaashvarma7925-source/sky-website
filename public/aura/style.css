@@ -96,3 +96,5 @@ input[type=range]#rateCtl{width:90px;vertical-align:middle}
   .send{padding:12px 14px}
   select.vctrl{max-width:130px}
 }
+
+.msg .md{white-space:normal}.msg pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0;padding:8px;background:rgba(255,255,255,.65);border-radius:8px}.msg code{font-family:ui-monospace,monospace;font-size:.9em}.composer textarea{min-width:0}
