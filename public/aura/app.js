@@ -158,7 +158,7 @@ $("toolForm").addEventListener("submit", async (e) => {
 /* ---------- speech out ---------- */
 const synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
 const ttsToggle = $("ttsToggle"), voiceSel = $("voiceSel"), rateCtl = $("rateCtl");
-let voices = [], lastSpoken = "";
+let voices = [], lastSpoken = "", speechWatch = null, speechRun = 0;
 
 function loadVoices() {
   if (!synth) return;
@@ -183,6 +183,8 @@ function speak(text, opts) {
   stopSpeak();
   lastSpoken = text;
   const hasDev = /[\u0900-\u097F]/.test(text);
+  const run = ++speechRun;
+  let started = false;
   const u = new SpeechSynthesisUtterance(text);
   u.rate = parseFloat(rateCtl.value) * ((opts && TONE_RATE[opts.tone]) || 1);
   u.pitch = (opts && TONE_PITCH[opts.tone]) || 1;
@@ -190,15 +192,18 @@ function speak(text, opts) {
     const v = voices.find((x) => x.voiceURI === voiceSel.value);
     if (v) u.voice = v;
   } else {
-    const v = voices.find((x) => hasDev ? /^hi([-_]|$)/i.test(x.lang) : /^en([-_]|$)/i.test(x.lang));
+    const candidates=voices.filter((x)=>hasDev?/^hi([-_]|$)/i.test(x.lang):/^en([-_]|$)/i.test(x.lang));
+    const v=candidates.find(x=>/Google.*(Hindi|हिन्दी)|Female|Zira|Swara/i.test(x.name))||candidates[0];
     if (v) u.voice = v;
   }
-  u.onstart = () => setState("speaking");
-  u.onend = () => setState("idle");
-  u.onerror = () => setState("idle");
+  u.onstart = () => { if(run!==speechRun)return;started=true;clearTimeout(speechWatch);setState("speaking"); };
+  u.onend = () => { if(run!==speechRun)return;clearTimeout(speechWatch);setState("idle"); };
+  u.onerror = () => { if(run!==speechRun)return;clearTimeout(speechWatch);setState("idle");setStatus("Voice did not work in this browser. Your text answer is available above.", "warn"); };
+  speechWatch=setTimeout(()=>{if(run===speechRun&&!started){stopSpeak();setStatus("Voice did not start. Try a voice from the list or keep using text.","warn");}},5000);
   synth.speak(u);
 }
 function stopSpeak() {
+  speechRun++;clearTimeout(speechWatch);
   if (synth) synth.cancel();
   if (stage.dataset.state === "speaking") setState("idle");
 }
@@ -214,7 +219,7 @@ if (SR) {
   micBtn.addEventListener("click", () => {
     if (rec) { rec.stop(); return; }
     rec = new SR();
-    rec.lang = /[\u0900-\u097F]/.test(inputEl.value) ? "hi-IN" : "en-IN";
+    rec.lang = $("inputLang").value;
     rec.interimResults = true;
     setState("listening");
     rec.onresult = (e) => {
@@ -225,7 +230,7 @@ if (SR) {
     };
     rec.onend = () => { rec = null; setState("idle"); };
     rec.onerror = () => { rec = null; setState("idle"); setStatus("Mic did not work in this browser. Typing works everywhere.", "warn"); };
-    rec.start();
+    try { rec.start(); } catch (e) { rec=null;setState("idle");setStatus("Microphone could not start. Check site permissions or type instead.","warn"); }
   });
 }
 
@@ -257,16 +262,17 @@ form.addEventListener("submit", async (e) => {
   if (!text || inFlight) return;
   inputEl.value = ""; autosize();
   stopSpeak();
-  bubble("user", text);
+  const userBubble = bubble("user", text);
   history.push({ role: "user", text });
   saveHistory();
 
   const ab = bubble("assistant", "");
+  const ctrl = new AbortController();
+  inFlight = ctrl;stopBtn.hidden=false;sendBtn.disabled=true;
   setStatus("One-time security check\u2026");
   const gateOk = await ensureSession();
   if (gateOk === false) setStatus("Security check could not run (ad-blocker?). Trying anyway\u2026", "warn");
-  const ctrl = new AbortController();
-  inFlight = ctrl;
+  if(ctrl.signal.aborted){ab.remove();inFlight=null;stopBtn.hidden=true;autosize();setStatus("Stopped.");return;}
   stopBtn.hidden = false;
   sendBtn.disabled = true;
   setState("thinking");
@@ -339,6 +345,9 @@ form.addEventListener("submit", async (e) => {
   if (gotError && !acc) {
     ab._md.innerHTML = md(gotError);
     ab.classList.add("error");
+    const retry=document.createElement("button");retry.type="button";retry.className="retrybtn";retry.textContent="Retry";
+    retry.onclick=()=>{if(inFlight)return;if(history[history.length-1]?.role!=="user"||history[history.length-1]?.text!==text){setStatus("Please send your question again.");return;}history.pop();saveHistory();ab.remove();userBubble.remove();inputEl.value=text;autosize();form.requestSubmit();};
+    ab.appendChild(retry);
     setStatus(gotError, "warn");
     setState("idle");
     return;
