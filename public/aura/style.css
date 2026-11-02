@@ -14,39 +14,23 @@ body{
   padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.7)}
 .wrap{max-width:860px;margin:0 auto;padding:6px 14px 40px}
 
-/* ---------- character stage ---------- */
+/* ---------- character stage (lightweight, no continuous animations) ---------- */
 .stage{margin:6px 0 16px;text-align:center}
-.spinbox{
+.talkframe{
   position:relative;margin:0 auto;overflow:hidden;border-radius:22px;
-  height:min(56vh,470px);max-width:min(88vw,420px);aspect-ratio:420/747;
-  border:1px solid rgba(255,255,255,.85);box-shadow:0 18px 50px rgba(30,80,130,.22);
-  touch-action:pan-y;cursor:grab;background:#1b1440;
+  height:min(52vh,440px);max-width:min(84vw,320px);aspect-ratio:480/720;
+  border:1px solid rgba(255,255,255,.85);box-shadow:0 14px 36px rgba(30,80,130,.18);
+  background:linear-gradient(180deg,#D9EEFF,#91CFFF);
 }
-.spinbox:active{cursor:grabbing}
-.spinbox img{
-  width:100%;height:100%;object-fit:cover;display:block;
-  user-select:none;-webkit-user-select:none;-webkit-user-drag:none;
-  transform-origin:center center;
-  animation:aura-breathe 7s ease-in-out infinite;
-}
-@keyframes aura-breathe{0%,100%{scale:1}50%{scale:1.012}}
-.stage[data-state="speaking"] .spinbox{box-shadow:0 0 0 3px var(--sky),0 18px 60px rgba(60,140,220,.45);animation:aura-glow 1.6s ease-in-out infinite}
-@keyframes aura-glow{0%,100%{box-shadow:0 0 0 3px var(--sky),0 18px 60px rgba(60,140,220,.45)}50%{box-shadow:0 0 0 5px var(--soft),0 18px 70px rgba(60,140,220,.65)}}
-.stage[data-state="listening"] .spinbox{box-shadow:0 0 0 3px #9BE7C4,0 18px 60px rgba(40,160,110,.35)}
-.stage[data-state="thinking"] .spinbox{box-shadow:0 0 0 3px #FFE1A8,0 18px 60px rgba(190,140,40,.3)}
+.talkframe img{width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-select:none;-webkit-user-drag:none}
+.stage[data-state="speaking"] .talkframe{border-color:var(--sky)}
+.stage[data-state="listening"] .talkframe{border-color:#9BE7C4}
+.stage[data-state="thinking"] .talkframe{border-color:#FFE1A8}
 .statepill{
   position:absolute;top:12px;left:12px;padding:5px 14px;border-radius:999px;
   background:rgba(10,25,45,.55);color:#EAF6FF;font-size:12px;font-weight:600;
   letter-spacing:.04em;backdrop-filter:blur(4px);
 }
-.spinctl{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:10px}
-.cbtn{
-  border:1px solid var(--sky);background:rgba(255,255,255,.8);color:var(--ink);
-  border-radius:12px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;
-}
-.cbtn:hover{background:#fff}
-.cbtn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-.spinprog{font-size:11px;color:var(--ink-soft);flex-basis:100%;text-align:center;min-height:14px}
 .stage-note{font-size:12px;color:var(--ink-soft);margin:8px auto 0;max-width:640px;line-height:1.5}
 
 /* ---------- chat ---------- */
@@ -110,10 +94,5 @@ input[type=range]#rateCtl{width:90px;vertical-align:middle}
   .msg{max-width:92%}
   .composer{padding:10px}
   .send{padding:12px 14px}
-  .spinbox{height:min(62vw*1.4,420px);height:min(58vh,420px)}
   select.vctrl{max-width:130px}
-}
-@media (prefers-reduced-motion:reduce){
-  .spinbox img{animation:none}
-  .stage[data-state="speaking"] .spinbox{animation:none}
 }
