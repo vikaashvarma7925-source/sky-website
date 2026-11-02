@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ZIP maker and opener - SKY Studio</title><meta name="description" content="Put files into one ZIP, or open a ZIP and save the files you need one by one. Free on SKY Studio - runs in your browser, nothing uploaded, no sign-up."><link rel="canonical" href="https://late-union-112b.vikaashvarma88.workers.dev/tools/zip/"><meta name="theme-color" content="#dcebf5"><link rel="stylesheet" href="/vendor/fonts/fonts.css"><link rel="stylesheet" href="../shared/tools.css"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:site_name" content="SKY Studio"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SKY Studio","url":"https://late-union-112b.vikaashvarma88.workers.dev/"}</script></head><body>
+<header class="pkb-top"><a class="pkb-brand" href="/">SKY <b>STUDIO</b></a><a class="pkb-back" href="/tools/">&larr; All tools</a></header>
+<main class="pkb" id="main"><p class="pkb-kicker">SKY Studio tool</p><h1>ZIP maker and opener</h1><p class="sub">Put files into one ZIP, or open a ZIP and save the files you need one by one.</p>
+<h2 class="zh">Make a ZIP</h2>
+<label class="drop" for="mfile"><strong>Choose files to put in the ZIP</strong><br><span class="small">Up to 50 files, 30 MB each, 100 MB in total.</span><input id="mfile" type="file" multiple></label>
+<div id="mlist"></div>
+<div class="row"><button id="mgo" type="button" disabled>Make ZIP</button></div>
+<h2 class="zh">Open a ZIP</h2>
+<label class="drop" for="ofile"><strong>Choose a ZIP file</strong><br><span class="small">Up to 100 MB. ZIPs with a password are not supported.</span><input id="ofile" type="file" accept=".zip,application/zip,application/x-zip-compressed"></label>
+<div id="olist"></div>
+<div id="st" class="msg" role="status" hidden></div>
+<p><a class="dl" id="dl" hidden>Download</a></p>
+<p class="small">Files stay on your device and are not uploaded. When you open a ZIP, nothing is saved until you press a Download link, and then the file is saved on your device like any other download. Every file taken out of a ZIP is checked against the ZIP&#39;s own size and checksum, and a file that does not match is not offered. Only open ZIP files from people you trust, and scan downloaded files with your own security app before you open them.</p></main><script src="app.js"></script></body></html>

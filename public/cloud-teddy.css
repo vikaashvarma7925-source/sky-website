@@ -1,0 +1,18 @@
+/* Cloud teddy: rest pose is ONE continuous silhouette filtered once with
+   feTurbulence + feDiffuseLighting (real cloud texture/volume, zero seams).
+   On touch/swipe the whole fades as 8 fluffy chunks burst outward, then
+   they drift back and the whole crossfades in. All filters are static
+   (rasterised once at load); motion is transform/opacity only. Colours
+   sampled from the site's own sky artwork. */
+.cloud-teddy{position:relative;display:block;width:240px;height:320px;margin:0 auto;padding:0;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:pan-y;animation:teddyBob 7s ease-in-out infinite}
+.teddy-svg{display:block;width:100%;height:100%;overflow:visible}
+.cloud-teddy .whole{opacity:.98;transition:opacity .45s ease .55s,transform .45s ease .55s;transform-origin:120px 170px}
+.cloud-teddy .pieces .part{opacity:0;transition:transform .95s cubic-bezier(.3,1.25,.42,1) var(--d),opacity .25s ease .6s;will-change:transform,opacity}
+.cloud-teddy.gone{animation-play-state:paused}
+.cloud-teddy.gone .whole{opacity:0;transform:scale(.86);transition:opacity .16s ease-in,transform .3s ease-in}
+.cloud-teddy.gone .pieces .part{opacity:.97;transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(.32);transition:transform .55s ease-in var(--d),opacity .12s ease-in}
+.teddy-hint{position:absolute;left:0;right:0;bottom:-6px;text-align:center;font-size:8px;letter-spacing:.18em;color:#ffffffd9;text-shadow:0 1px 8px #4d3b6955;transition:opacity .4s}
+.cloud-teddy.gone .teddy-hint{opacity:0}
+.cloud-teddy:focus-visible{outline:3px solid #fff;outline-offset:6px;border-radius:20px}
+@keyframes teddyBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(prefers-reduced-motion:reduce){.cloud-teddy{animation:none}.cloud-teddy .pieces{display:none}.cloud-teddy .whole{transition:opacity .3s ease}.cloud-teddy.gone .whole{transform:none}}

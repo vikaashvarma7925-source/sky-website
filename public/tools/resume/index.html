@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Resume maker - SKY Studio</title><meta name="description" content="Type your details, check the preview, then print or save as PDF. Simple one-column A4 layout, no photo. A long resume will use more than one page."><link rel="canonical" href="https://late-union-112b.vikaashvarma88.workers.dev/tools/resume/"><meta name="theme-color" content="#dcebf5"><link rel="stylesheet" href="/vendor/fonts/fonts.css"><link rel="stylesheet" href="../shared/tools.css"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:site_name" content="SKY Studio"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SKY Studio","url":"https://late-union-112b.vikaashvarma88.workers.dev/"}</script></head><body>
+<header class="pkb-top"><a class="pkb-brand" href="/">SKY <b>STUDIO</b></a><a class="pkb-back" href="/tools/">&larr; All tools</a></header>
+<main class="pkb" id="main"><p class="pkb-kicker">SKY Studio tool</p><h1>Resume maker</h1><p class="sub">Type your details, check the preview, then print or save as PDF. Simple one-column A4 layout, no photo. A long resume will use more than one page.</p>
+<div id="ctl">
+<label for="nm" class="lbl">Full name</label><input id="nm" type="text" maxlength="60" class="txt">
+<div class="row"><div><label for="ph" class="lbl">Phone</label><input id="ph" type="text" maxlength="30" class="txt"></div><div><label for="em" class="lbl">Email</label><input id="em" type="text" maxlength="80" class="txt"></div><div><label for="ct" class="lbl">City</label><input id="ct" type="text" maxlength="40" class="txt"></div></div>
+<label for="sm" class="lbl">Short summary (optional, 2-3 lines)</label><textarea id="sm" maxlength="500" style="min-height:80px"></textarea>
+<p class="lbl">Work experience (up to 6)</p><div id="ex"></div><button id="addx" type="button">Add experience</button>
+<p class="lbl">Education (up to 5)</p><div id="ed"></div><button id="adde" type="button">Add education</button>
+<label for="sk" class="lbl">Skills (one per line, up to 30)</label><textarea id="sk" style="min-height:90px"></textarea>
+<label for="lg" class="lbl">Languages (optional, e.g. Hindi, English)</label><input id="lg" type="text" maxlength="100" class="txt">
+<div id="st" class="msg" role="status" hidden></div>
+<div class="row"><button id="pr" type="button">Print or save as PDF</button></div>
+</div>
+<div id="sheet" class="rs" aria-label="Resume preview"></div>
+<p class="small">Everything you type stays in this page. It is not uploaded or saved, and it is gone when you close the page. This tool only arranges what you type. It does not write or check your facts. Make sure every detail is true and current before you send it.</p></main><script src="app.js"></script></body></html>

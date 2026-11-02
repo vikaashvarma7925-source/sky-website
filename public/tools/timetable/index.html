@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Study timetable - SKY Studio</title><meta name="description" content="Make a weekly timetable, fill the boxes, then print it on one A4 page. Free on SKY Studio - runs in your browser, nothing uploaded, no sign-up."><link rel="canonical" href="https://late-union-112b.vikaashvarma88.workers.dev/tools/timetable/"><meta name="theme-color" content="#dcebf5"><link rel="stylesheet" href="/vendor/fonts/fonts.css"><link rel="stylesheet" href="../shared/tools.css"><link rel="stylesheet" href="timetable.css"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:site_name" content="SKY Studio"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SKY Studio","url":"https://late-union-112b.vikaashvarma88.workers.dev/"}</script></head><body>
+<header class="pkb-top"><a class="pkb-brand" href="/">SKY <b>STUDIO</b></a><a class="pkb-back" href="/tools/">&larr; All tools</a></header>
+<main class="pkb" id="main"><p class="pkb-kicker">SKY Studio tool</p><h1>Study timetable</h1><p class="sub">Make a weekly timetable, fill the boxes, then print it on one A4 page.</p>
+<div id="ctl">
+<label class="lbl" for="ti">Title</label><input id="ti" class="txt" type="text" maxlength="40" value="My study timetable">
+<label class="lbl" for="dy">Days</label><select id="dy"><option value="6">Monday to Saturday</option><option value="7">Monday to Sunday</option><option value="5">Monday to Friday</option></select>
+<label class="lbl" for="np">Periods per day</label><select id="np"></select>
+<label class="lbl" for="t0">First period starts at</label><input id="t0" class="txt" type="time" value="16:00">
+<label class="lbl" for="ln">Minutes in each period</label><select id="ln"><option>30</option><option>45</option><option selected>60</option><option>90</option><option>120</option></select>
+<p class="small">Type in the boxes below. Each box can hold up to 20 characters.</p>
+<div id="gw" class="gw"></div>
+<label class="lbl" for="sb">Subjects (one per line, up to 12)</label><textarea id="sb" class="txt" rows="4" maxlength="400" placeholder="Maths&#10;Science&#10;English"></textarea>
+<div class="row"><button id="fl" type="button">Fill empty boxes with these subjects in turn</button><button id="cl" type="button" class="alt">Clear all boxes</button></div>
+<div id="st" class="msg" role="status" hidden></div>
+<div class="row"><button id="pr" type="button">Print or save as PDF</button></div></div>
+<div id="sheet" aria-label="Timetable print preview"></div>
+<p class="small">Everything you type stays in this page. It is not uploaded or saved, so it is gone when you close the page. When you save a PDF, it is stored on your device like any other file. The fill button only places your subjects in turn. It does not plan your study for you.</p></main><script src="app.js"></script></body></html>

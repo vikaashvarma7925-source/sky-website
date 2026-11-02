@@ -1,0 +1,7 @@
+.lt{margin-top:14px;background:#fff;border:1px solid #adc8da;border-radius:6px;padding:18px 16px;color:#173b5e;overflow-wrap:anywhere;font-size:15px;line-height:1.55}
+.lt p{margin:0 0 10px;white-space:pre-wrap}
+.lt .lt-r{text-align:right}
+.lt .lt-s{font-weight:700;text-align:center;text-decoration:underline}
+.lt .lt-sig{margin-top:22px}
+#tp{width:100%;box-sizing:border-box}
+@media print{@page{size:A4;margin:18mm}.pkb:has(.lt) #ctl{display:none !important}#sheet.lt{margin:0;border:0;padding:0;color:#000;font-size:12.5pt;line-height:1.6}}

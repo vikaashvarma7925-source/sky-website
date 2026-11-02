@@ -1,0 +1,23 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Application letter maker - SKY Studio</title><meta name="description" content="Pick a letter type and a language, fill the boxes, edit the words if you want, then print or save as PDF. It prints on one A4 page."><link rel="canonical" href="https://late-union-112b.vikaashvarma88.workers.dev/tools/letter/"><meta name="theme-color" content="#dcebf5"><link rel="stylesheet" href="/vendor/fonts/fonts.css"><link rel="stylesheet" href="../shared/tools.css"><link rel="stylesheet" href="letter.css"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:site_name" content="SKY Studio"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SKY Studio","url":"https://late-union-112b.vikaashvarma88.workers.dev/"}</script></head><body>
+<header class="pkb-top"><a class="pkb-brand" href="/">SKY <b>STUDIO</b></a><a class="pkb-back" href="/tools/">&larr; All tools</a></header>
+<main class="pkb" id="main"><p class="pkb-kicker">SKY Studio tool</p><h1>Application letter maker</h1><p class="sub">Pick a letter type and a language, fill the boxes, edit the words if you want, then print or save as PDF. It prints on one A4 page.</p>
+<div id="ctl">
+<fieldset><legend>Language of the letter</legend><div class="chips"><label><input type="radio" name="lg" value="en" checked><span>English</span></label><label><input type="radio" name="lg" value="hi"><span>Hindi</span></label></div></fieldset>
+<div id="gnw" hidden><label class="lbl" for="gn">Hindi wording (words differ for a man and a woman)</label><select id="gn" class="txt"><option value="b">Show both forms, like चाहता/चाहती (delete the one that does not fit)</option><option value="m">For a man (चाहता, करूँगा)</option><option value="f">For a woman (चाहती, करूँगी)</option></select></div>
+<label class="lbl" for="tp">Letter type</label><select id="tp" class="txt"></select>
+<label class="lbl" for="to">To (name and place, up to 3 lines)</label><textarea id="to" class="txt" maxlength="160" rows="3"></textarea>
+<label class="lbl" for="sj">Subject</label><input id="sj" class="txt" type="text" maxlength="120">
+<label class="lbl" for="fa" id="la"></label><input id="fa" class="txt" type="text" maxlength="60">
+<label class="lbl" for="fb" id="lb"></label><input id="fb" class="txt" type="text" maxlength="60">
+<label class="lbl" for="fc" id="lc"></label><input id="fc" class="txt" type="text" maxlength="120">
+<label class="lbl" for="bd">Letter text (you can change it)</label><textarea id="bd" class="txt" maxlength="900" rows="6"></textarea>
+<div id="nt" class="msg" role="status" hidden></div>
+<div class="row"><button id="rs" type="button">Reset text (replaces my changes)</button></div>
+<label class="lbl" for="nm">Your name</label><input id="nm" class="txt" type="text" maxlength="60">
+<label class="lbl" for="ad">Your address and phone (up to 3 lines)</label><textarea id="ad" class="txt" maxlength="160" rows="3"></textarea>
+<label class="lbl" for="dt">Date</label><input id="dt" class="txt" type="text" maxlength="30">
+<label class="lbl" for="pl">Place (optional)</label><input id="pl" class="txt" type="text" maxlength="40">
+<div id="st" class="msg" role="status" hidden></div>
+<div class="row"><button id="pr" type="button">Print or save as PDF</button></div></div>
+<div id="sheet" class="lt" aria-label="Letter preview"></div>
+<p class="small">Everything you type stays in this page. It is not uploaded or saved. These are simple sample letters, not legal advice, and an office may need its own form or extra papers. Check every name, date and number before you print. When you save a PDF, it is stored on your device like any other file.</p></main><script src="app.js"></script></body></html>

@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Salary slip maker - SKY Studio</title><meta name="description" content="Type the real pay details, check the totals, then print or save as PDF. It prints on one A4 page."><link rel="canonical" href="https://late-union-112b.vikaashvarma88.workers.dev/tools/salary/"><meta name="theme-color" content="#dcebf5"><link rel="stylesheet" href="/vendor/fonts/fonts.css"><link rel="stylesheet" href="../shared/tools.css"><link rel="stylesheet" href="salary.css"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:site_name" content="SKY Studio"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SKY Studio","url":"https://late-union-112b.vikaashvarma88.workers.dev/"}</script></head><body>
+<header class="pkb-top"><a class="pkb-brand" href="/">SKY <b>STUDIO</b></a><a class="pkb-back" href="/tools/">&larr; All tools</a></header>
+<main class="pkb" id="main"><p class="pkb-kicker">SKY Studio tool</p><h1>Salary slip maker</h1><p class="sub">Type the real pay details, check the totals, then print or save as PDF. It prints on one A4 page.</p>
+<div id="ctl">
+<label class="lbl" for="co">Employer or business name</label><input id="co" class="txt" type="text" maxlength="60">
+<label class="lbl" for="ad">Employer address (optional)</label><textarea id="ad" class="txt" rows="2" maxlength="120"></textarea>
+<label class="lbl" for="mo">Pay month</label><input id="mo" class="txt" type="month">
+<label class="lbl" for="en">Employee name</label><input id="en" class="txt" type="text" maxlength="50">
+<label class="lbl" for="ei">Employee ID (optional)</label><input id="ei" class="txt" type="text" maxlength="20">
+<label class="lbl" for="de">Designation (optional)</label><input id="de" class="txt" type="text" maxlength="40">
+<label class="lbl" for="dp">Days paid (optional, for example 26 of 30)</label><input id="dp" class="txt" type="text" maxlength="20">
+<span class="lbl">Earnings (amount in rupees, like 25000 or 25,000.50)</span><div id="er"></div><div class="row"><button id="ae" type="button" class="alt">Add earning row</button></div>
+<span class="lbl">Deductions (amount in rupees)</span><div id="dr"></div><div class="row"><button id="ad2" type="button" class="alt">Add deduction row</button></div>
+<div id="st" class="msg" role="status" hidden></div>
+<div class="row"><button id="pr" type="button">Print or save as PDF</button></div></div>
+<div id="sheet" class="sl" aria-label="Salary slip preview"></div>
+<p class="small">Everything you type stays in this page. It is not uploaded or saved. This tool only lays out the numbers you type. It does not know your tax or PF rules, so check every amount. The slip is a plain statement. It is not an official document unless your employer signs and stamps it. Use it only for real pay details. When you save a PDF, it is stored on your device like any other file.</p></main><script src="app.js"></script></body></html>

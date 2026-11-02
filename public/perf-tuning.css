@@ -1,0 +1,13 @@
+/* Render-cost tuning for low-end phones (user reported lag). Overrides only; layout unchanged. */
+.tile-1{filter:none}
+.lab-gem{text-shadow:0 0 40px #c9a5ff99}
+.object-layer>i{text-shadow:0 0 24px #e9c0ff99}
+@media(max-width:700px){.mosaic-tile:nth-child(n+37){display:none}}
+.sky-features,.sky-ending,footer{content-visibility:auto;contain-intrinsic-size:auto 900px}
+/* v4 mobile lag cuts: 3D card shadows re-raster every scroll frame on low-end GPUs. */
+@media(max-width:700px){
+.object-layer{box-shadow:inset 0 1px 1px #ffffff90,0 12px 26px #00000038!important}
+.object-layer>i{text-shadow:none}
+.lab-gem{text-shadow:0 0 26px #c9a5ff66}
+.object-orbit{box-shadow:none}
+}

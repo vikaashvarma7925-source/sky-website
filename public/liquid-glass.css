@@ -1,0 +1,71 @@
+/* Liquid glass treatment, whole theme (user request: "Liquid glasses bhi add kar... pure website par").
+   Performance rules: real backdrop-filter blur only on desktop pointers over static backdrops.
+   Phones and all scroll-moving / 3D elements get simulated glass (frosted gradients + inner
+   highlights) so the look is everywhere without per-frame blur repaints (user reported lag). */
+
+/* 1. Top bar: frosted strip over the hero art */
+.portal-home>.topbar{background:linear-gradient(180deg,#ffffff9e,#ffffff4f)!important;border-bottom:1px solid #ffffff80!important;box-shadow:inset 0 1px 1px #ffffffc8,0 6px 22px #51426014!important}
+/* 2. Nav pills + menu: glass chips, text stays dark for readability */
+.portal-home #nav a{background:linear-gradient(135deg,#ffffffde,#ffffffa3 55%,#ffffffc4)!important;border:1px solid #ffffff!important;box-shadow:inset 0 1px 1px #fff,inset 0 -1px 1px #6a52941f,0 6px 16px #51426014}
+.portal-home .menu-toggle{background:linear-gradient(135deg,#ffffff59,#ffffff21)!important;border:1px solid #ffffffb0!important;box-shadow:inset 0 1px 1px #ffffff90}
+/* 3. Buttons: sheened glass pill, white enough to read on any art */
+.portal-button{background:linear-gradient(135deg,#ffffff,#f2edfc 60%,#ffffff)!important;border:1px solid #fff;box-shadow:inset 0 1px 1px #fff,inset 0 -2px 3px #8468b01f,0 8px 24px #51426026}
+/* 4. THE CARD (user: "card ko fix kar") - journey/hero device card.
+   Was washing out over the bright sky art; now a brighter, more opaque frosted panel
+   with stronger inner highlights and darker text. Simulated glass: it sits over the
+   parallax art and moves with scroll, so no backdrop blur here. */
+.portal-device{background:linear-gradient(158deg,#f6f2fdf5 0%,#e4dcf5ee 52%,#d5c9eee8 100%)!important;border:1.5px solid #fffffffc!important;box-shadow:inset 0 2px 2px #ffffffe8,inset 0 -2px 3px #6a529433,inset 1px 0 1px #ffffff90,0 28px 60px #62527b52!important}
+.portal-device-grid div{background:linear-gradient(140deg,#ffffffc9,#ffffff7a 55%,#ffffffa8);border:1px solid #ffffffe0;border-radius:18px;box-shadow:inset 0 1px 1px #fff,inset 0 -1px 1px #6a52941c;color:#43315f}
+.portal-device-title{color:#3d2c58!important}
+/* 5. Lab 3D cards: same frosted family, keep per-frame cost flat (no blur on 3D transforms) */
+.object-layer{box-shadow:inset 0 1px 1px #ffffffb0,inset 0 -1px 1px #2c1c4c2e,0 25px 55px #0005}
+.layer-front{background:linear-gradient(145deg,#d4c6f2c9,#8574c4e6)}
+.layer-mid{background:linear-gradient(150deg,#d3e0f6c9,#6d93c2e6)}
+.layer-back{background:linear-gradient(150deg,#f4d7d2c9,#a97aae6)}
+/* 6. Skip chip on the dark lab scene */
+.lab-skip{background:linear-gradient(135deg,#ffffff26,#ffffff0d);border:1px solid #ffffff59;box-shadow:inset 0 1px 1px #ffffff40}
+/* 7. Feature cards + demos: frosted panels over the flat sections */
+.sky-feature{background:linear-gradient(150deg,#f5f7fef5,#e7ebf9ea)!important;border:1px solid #ffffffe0;box-shadow:inset 0 1px 1px #fff,inset 0 -1px 1px #6a6f9e14,0 18px 44px #4a557f1f}
+.sky-feature-demo{background:linear-gradient(150deg,#e3e1f4d9,#cfcdf0c4)!important;border:1px solid #ffffff!important;box-shadow:inset 0 1px 1px #ffffffe0,inset 0 -1px 1px #66618e2a,0 20px 40px #66618e26}
+/* 8. Visual-spaces rows + library cards */
+.portal-full .new-card,.portal-full .visual-row{background:linear-gradient(140deg,#fffffff2,#f4f2fce0)!important;border:1px solid #ffffff!important;box-shadow:inset 0 1px 1px #fff,inset 0 -1px 1px #6a529412,0 10px 26px #4a557f14}
+/* 9. Marquee band: quiet dark glass */
+.drift-marquee{background:#ffffff06;box-shadow:inset 0 1px 0 #ffffff14,inset 0 -1px 0 #ffffff10}
+/* 10. Real liquid blur only where it is cheap: desktop pointers, small static UI */
+@media (hover:hover) and (pointer:fine){
+@supports ((backdrop-filter:blur(2px)) or (-webkit-backdrop-filter:blur(2px))){
+.portal-home>.topbar{-webkit-backdrop-filter:blur(10px) saturate(1.25);backdrop-filter:blur(10px) saturate(1.25)}
+.portal-home #nav a,.portal-home .menu-toggle,.lab-skip{-webkit-backdrop-filter:blur(8px) saturate(1.25);backdrop-filter:blur(8px) saturate(1.25)}
+.portal-full .new-card,.portal-full .visual-row{-webkit-backdrop-filter:blur(6px) saturate(1.15);backdrop-filter:blur(6px) saturate(1.15)}
+}}
+/* v5 crystal pass (user: "liquid crystal glass"): clearer, more transparent glass with
+   specular edges on the two cards he pointed at. Still simulated on mobile (perf). */
+.portal-device{background:linear-gradient(158deg,#ffffff8c 0%,#f0ebffb8 48%,#e6dcfa73 100%)!important;border:1.5px solid #ffffff!important;box-shadow:inset 0 2px 2px #ffffff,inset 1px 0 1px #ffffffb0,inset 0 -2px 3px #6a52942e,0 28px 60px #62527b52!important}
+.portal-device-grid div{background:linear-gradient(140deg,#ffffffd9,#ffffff8f 55%,#ffffffb8)}
+.object-layer{border:1px solid #ffffffc9;box-shadow:inset 0 1px 1px #ffffffe0,inset 1px 0 1px #ffffff80,inset 0 -1px 1px #2c1c4c38,0 25px 55px #0005}
+.layer-front{background:linear-gradient(145deg,#e2d8ff59,#9a86d95e)}
+.layer-mid{background:linear-gradient(150deg,#d9e5f859,#7ba0cf5e)}
+.layer-back{background:linear-gradient(150deg,#f8e2dd59,#b78bbd5e)}
+@media(max-width:700px){
+.object-layer{box-shadow:inset 0 1px 1px #ffffffd0,inset 1px 0 1px #ffffff70,0 12px 26px #00000038!important}
+}
+
+/* v9: transparent liquid glass on the white scene cards + big pale panels
+   (user 08:31: "Ye sab ko liquid glass effect dena hai" - phone screenshots of the
+   new-library cards/panels). More transparent than the earlier frosted pass so the
+   section colour shows through; luminous specular edges; text stays dark/readable. */
+.portal-full .new-library{background:linear-gradient(168deg,#f2f1fb 0%,#e3e8f8 46%,#efe9f8 100%)}
+.portal-full .new-category{background:linear-gradient(150deg,#ffffff5e,#e9e7f92e)!important;border:1px solid #ffffffe0;box-shadow:inset 0 1px 1px #ffffff,inset 0 -1px 1px #6a529414,0 24px 54px #4a557f1f}
+.portal-full .new-card,.portal-full .visual-row{background:linear-gradient(140deg,#ffffff80,#f4f2fc4a)!important;border:1px solid #ffffff!important;box-shadow:inset 0 1px 1px #ffffff,inset 1px 0 1px #ffffff70,inset 0 -1px 1px #6a529412,0 10px 26px #4a557f14}
+.sky-feature{background:linear-gradient(150deg,#ffffff63,#e7ebf938)!important;border:1px solid #ffffffe0;box-shadow:inset 0 1px 1px #fff,inset 0 -1px 1px #6a6f9e14,0 18px 44px #4a557f1f}
+
+/* v9: library heading readability on the lightened glass section (was white on pale). */
+.portal-full .new-library>h2{color:#3b3050}
+
+/* v9: water ripple following the finger while swiping (user 08:34 "ungli wala effect").
+   Rings only; no blur; pauses for reduced motion. */
+.water-layer{position:fixed;inset:0;z-index:60;pointer-events:none;overflow:hidden}
+.water-ring{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:2px solid #ffffffc4;box-shadow:0 0 14px #a8c8f266,inset 0 0 8px #ffffff55;opacity:.85;animation:waterRing .95s ease-out forwards;will-change:transform,opacity}
+.water-ring:after{content:'';position:absolute;inset:6px;border-radius:50%;border:1.5px solid #cfe2ff99}
+@keyframes waterRing{from{transform:scale(.25);opacity:.85}to{transform:scale(2.4);opacity:0}}
+@media(prefers-reduced-motion:reduce){.water-layer{display:none}}

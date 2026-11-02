@@ -1,0 +1,21 @@
+.gw{overflow-x:auto;margin:12px 0;border:1px solid #adc8da;border-radius:12px;background:#fff}
+.ht{border-collapse:collapse;color:#173b5e}.ht caption{font-weight:800;font-size:18px;padding:10px;text-align:left;position:sticky;left:0}
+.ht th,.ht td{border:1px solid #d3e2ee;padding:0;text-align:center;font-size:13px}
+.ht th{background:#eef5fa;min-width:44px;padding:4px 2px}.ht th .wd{display:block;font-size:10px;font-weight:500}
+.ht th.hn{min-width:130px;max-width:170px;text-align:left;padding:4px 8px;position:sticky;left:0;z-index:1;overflow-wrap:anywhere}
+.ht .we{background:#e2edf5}
+.ht td button.tk{display:block;width:100%;min-width:44px;height:44px;min-height:44px;margin:0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:#173b5e;font-size:20px;font-weight:700;letter-spacing:0}
+.ht td button.tk[aria-pressed=true]{background:#cfe5d8}
+button.alt{background:#fff;color:#24506f;border:1px solid #24506f}
+@media print{
+@page{size:A4 landscape;margin:10mm}
+body{background:#fff}
+.pkb{padding:0!important;margin:0!important;max-width:none!important;box-shadow:none!important;background:#fff!important;border:0!important}
+.gw{overflow:visible;border:0;margin:0}
+.ht{width:100%;table-layout:fixed}.ht caption{position:static;font-size:20px;text-align:center}
+.ht th,.ht td{border-color:#173b5e;font-size:9px}
+.ht th{min-width:0;padding:2px 0}.ht th.hn{width:30mm;min-width:0;max-width:none;position:static;font-size:10px}
+.ht td button.tk{min-width:0;height:9mm;min-height:0;font-size:12px}
+.ht td button.tk[aria-pressed=true]{background:transparent}
+.ht .we{background:#e4e4e4}
+}

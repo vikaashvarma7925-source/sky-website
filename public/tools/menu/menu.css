@@ -1,0 +1,13 @@
+.mg{border:1px solid #adc8da;border-radius:12px;padding:10px;margin:10px 0}
+.mg-i{display:grid;grid-template-columns:2fr 1fr;gap:6px;margin:6px 0}
+.mg button{margin:6px 6px 0 0;min-height:44px}
+.mn{margin-top:14px;background:#fff;border:1px solid #adc8da;border-radius:12px;padding:16px;color:#173b5e;overflow-wrap:anywhere}
+.mn-t{text-align:center;font-size:26px;font-weight:800;letter-spacing:.06em}
+.mn-s{text-align:center;margin:2px 0 8px;font-size:13px}
+.mn-h{font-size:14px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1.5px solid #173b5e;margin:16px 0 4px;padding-bottom:2px;break-after:avoid}
+.mn-r{display:flex;gap:8px;padding:3px 0;break-inside:avoid}
+.mn-r span:first-child{flex:1}
+.mn-r span:last-child{font-weight:700;white-space:nowrap}
+.mn-f{text-align:center;margin-top:18px;font-size:12px;border-top:1px solid #adc8da;padding-top:6px}
+@media(max-width:520px){.mg-i{grid-template-columns:1fr}}
+@media print{.pkb:has(.mn) #ctl{display:none !important}.mn{border:0;padding:0;margin:0;color:#000;font-size:12pt}.mn-h,.mn-f{border-color:#000}}

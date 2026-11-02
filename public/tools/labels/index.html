@@ -1,0 +1,12 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Label and sticker sheet - SKY Studio</title><meta name="description" content="Make a printable A4 sheet of labels, like name stickers. Free on SKY Studio - runs in your browser, nothing uploaded, no sign-up."><link rel="canonical" href="https://late-union-112b.vikaashvarma88.workers.dev/tools/labels/"><meta name="theme-color" content="#dcebf5"><link rel="stylesheet" href="/vendor/fonts/fonts.css"><link rel="stylesheet" href="../shared/tools.css"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:site_name" content="SKY Studio"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SKY Studio","url":"https://late-union-112b.vikaashvarma88.workers.dev/"}</script></head><body>
+<header class="pkb-top"><a class="pkb-brand" href="/">SKY <b>STUDIO</b></a><a class="pkb-back" href="/tools/">&larr; All tools</a></header>
+<main class="pkb" id="main"><p class="pkb-kicker">SKY Studio tool</p><h1>Label and sticker sheet</h1><p class="sub">Make a printable A4 sheet of labels, like name stickers.</p>
+<div id="ctl">
+<label for="t" class="lbl">Label text (one label per line, or a single line to repeat)</label><textarea id="t" style="min-height:110px"></textarea>
+<label for="lay" class="lbl">Labels per A4 sheet</label><select id="lay"><option value="2x7">14 (2 x 7)</option><option value="3x8" selected>24 (3 x 8)</option><option value="4x10">40 (4 x 10)</option><option value="5x13">65 (5 x 13)</option></select>
+<label class="opt"><input type="checkbox" id="rep" checked> If I type only one line, repeat it on the whole sheet</label>
+<div class="row"><button id="mk" disabled>Make sheet</button><button id="pr" disabled>Print or save as PDF</button></div>
+<div id="st" class="msg" role="status" hidden></div>
+</div>
+<div id="sheet" class="lb" aria-label="Label sheet preview"></div>
+<p class="small">Your text stays in this page. Nothing is uploaded or saved. The grid divides an A4 page equally. It is not matched to a specific sticker brand, so if you print on ready-made sticker paper, test one plain page first and hold it against the sticker sheet. Print at 100 percent ("Actual size"), not "Fit to page". Long text is cut at the edge of the label.</p></main><script src="app.js"></script></body></html>

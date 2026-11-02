@@ -1,0 +1,15 @@
+/* Scroll-linked moving text study (user reference: travelling headline text).
+   Short fully-visible words, gentle opposite-direction drift with scroll.
+   Transform-only motion, no layout work, no external requests. */
+.sky-drift{position:relative;padding:110px 0 100px;overflow:hidden;background:linear-gradient(180deg,#0e1b2e 0%,#1b2f4d 52%,#101d2e 100%);color:#fff}
+.drift-line{white-space:nowrap;text-align:center;will-change:transform;font-weight:800;letter-spacing:-.015em;line-height:1.04}
+.drift-line-a,.drift-line-c{font-size:clamp(54px,19vw,220px);color:#f4ecff}
+.drift-line-b{font-size:clamp(54px,19vw,220px);color:transparent;-webkit-text-stroke:2px rgba(201,182,242,.85);margin:8px 0}
+.drift-caption{text-align:center;font-size:12px;letter-spacing:.18em;color:#cdc3ea;margin:56px 0 0;text-transform:uppercase}
+.drift-marquee{margin-top:50px;border-top:1px solid rgba(255,255,255,.11);border-bottom:1px solid rgba(255,255,255,.11);padding:16px 0;overflow:hidden}
+.marquee-track{display:flex;width:max-content;animation:sky-marquee 26s linear infinite;will-change:transform}
+.marquee-track span{white-space:nowrap;font-size:15px;letter-spacing:.22em;color:#e8ddff;padding-right:2em;font-weight:600}
+.drift-marquee.is-off .marquee-track,body.scrolling .marquee-track{animation-play-state:paused}
+@keyframes sky-marquee{to{transform:translateX(-50%)}}
+@media(max-width:700px){.sky-drift{padding:80px 0 70px}.drift-caption{font-size:10px;margin-top:42px}.drift-marquee{margin-top:38px}}
+@media(prefers-reduced-motion:reduce){.marquee-track{animation:none}}

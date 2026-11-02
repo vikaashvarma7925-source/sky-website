@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Invitation card maker - SKY Studio</title><meta name="description" content="Type the details, check the card, then print or save as PDF. It prints on one A4 page. Free on SKY Studio - runs in your browser, nothing uploaded, no sign-up."><link rel="canonical" href="https://late-union-112b.vikaashvarma88.workers.dev/tools/invite/"><meta name="theme-color" content="#dcebf5"><link rel="stylesheet" href="/vendor/fonts/fonts.css"><link rel="stylesheet" href="../shared/tools.css"><link rel="stylesheet" href="invite.css"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:site_name" content="SKY Studio"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SKY Studio","url":"https://late-union-112b.vikaashvarma88.workers.dev/"}</script></head><body>
+<header class="pkb-top"><a class="pkb-brand" href="/">SKY <b>STUDIO</b></a><a class="pkb-back" href="/tools/">&larr; All tools</a></header>
+<main class="pkb" id="main"><p class="pkb-kicker">SKY Studio tool</p><h1>Invitation card maker</h1><p class="sub">Type the details, check the card, then print or save as PDF. It prints on one A4 page.</p>
+<div id="ctl">
+<span class="lbl" id="lglbl">Language of the card</span><div class="row" role="radiogroup" aria-labelledby="lglbl"><label class="chip"><input type="radio" name="lg" value="en" checked> English</label><label class="chip"><input type="radio" name="lg" value="hi"> Hindi</label></div>
+<label class="lbl" for="oc">Occasion</label><select id="oc"></select>
+<label class="lbl" for="st2">Card style</label><select id="st2"><option value="a">Classic border</option><option value="b">Colour top band</option><option value="c">Simple</option></select>
+<label class="lbl" for="hd">Top line</label><input id="hd" class="txt" type="text" maxlength="40">
+<p id="hn" class="small" hidden>The top line was kept as you typed it. Clear the box to get the standard line for this occasion and language.</p>
+<label class="lbl" for="nm">Name of the event (for example: Aarav's 5th Birthday)</label><input id="nm" class="txt" type="text" maxlength="60" placeholder="e.g. Aarav's 5th Birthday">
+<label class="lbl" for="ex">A short line for your guests (optional)</label><textarea id="ex" class="txt" rows="2" maxlength="100"></textarea>
+<label class="lbl" for="dt">Date</label><input id="dt" class="txt" type="text" maxlength="34" placeholder="e.g. Sunday, 15 November 2026">
+<label class="lbl" for="tm">Time</label><input id="tm" class="txt" type="text" maxlength="24" placeholder="e.g. 6:00 PM onwards">
+<label class="lbl" for="pl">Place (up to 3 lines)</label><textarea id="pl" class="txt" rows="3" maxlength="120" placeholder="e.g. Sai Hall, Main Road, Pune"></textarea>
+<label class="lbl" for="ho">From (host name)</label><input id="ho" class="txt" type="text" maxlength="40">
+<label class="lbl" for="ct">Phone number to contact (optional)</label><input id="ct" class="txt" type="text" maxlength="20">
+<div id="st" class="msg" role="status" hidden></div>
+<div class="row"><button id="pr" type="button">Print or save as PDF</button></div></div>
+<div id="sheet" class="iv" aria-label="Invitation preview"></div>
+<p class="small">Everything you type stays in this page. It is not uploaded or saved. Check every name, date, time and place before you print. When you save a PDF, it is stored on your device like any other file.</p></main><script src="app.js"></script></body></html>

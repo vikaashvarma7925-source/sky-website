@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Handwriting practice sheet - SKY Studio</title><meta name="description" content="Make a printable sheet with light letters to trace and empty lines to copy on. Free on SKY Studio - runs in your browser, nothing uploaded, no sign-up."><link rel="canonical" href="https://late-union-112b.vikaashvarma88.workers.dev/tools/handwriting/"><meta name="theme-color" content="#dcebf5"><link rel="stylesheet" href="/vendor/fonts/fonts.css"><link rel="stylesheet" href="../shared/tools.css"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:site_name" content="SKY Studio"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SKY Studio","url":"https://late-union-112b.vikaashvarma88.workers.dev/"}</script></head><body>
+<header class="pkb-top"><a class="pkb-brand" href="/">SKY <b>STUDIO</b></a><a class="pkb-back" href="/tools/">&larr; All tools</a></header>
+<main class="pkb" id="main"><p class="pkb-kicker">SKY Studio tool</p><h1>Handwriting practice sheet</h1><p class="sub">Make a printable sheet with light letters to trace and empty lines to copy on.</p>
+<div id="ctl">
+<label for="t" class="lbl">Letter, word or short line to practise</label><input id="t" type="text" maxlength="40" class="txt" placeholder="Example: A B C, or नमस्ते">
+<label for="rows" class="lbl">Number of lines</label><select id="rows"><option>6</option><option selected>10</option><option>14</option></select>
+<label for="rep" class="lbl">Light copies at the start of each line</label><select id="rep"><option value="0">None (empty lines only)</option><option value="2">2</option><option value="4" selected>4</option><option value="6">6</option></select>
+<label for="sz" class="lbl">Letter size</label><select id="sz"><option value="28">Small</option><option value="40" selected>Medium</option><option value="56">Large</option></select>
+<div class="row"><button id="mk" disabled>Make sheet</button><button id="pr" disabled>Print or save as PDF</button></div>
+<div id="st" class="msg" role="status" hidden></div>
+</div>
+<div id="sheet" aria-label="Practice sheet preview"></div>
+<p class="small">Your text stays in this page. It is not uploaded or saved. The Print button opens your browser print window: choose "Save as PDF" or a printer, and pick A4 paper. Letters use your device font, so the shape of letters can differ between devices.</p></main><script src="app.js"></script></body></html>

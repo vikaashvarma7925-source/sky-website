@@ -1,0 +1,3 @@
+.sc-box{margin:10px 0;border:1px solid #c9d6e2;border-radius:10px;background:#fff;overflow:hidden;display:flex;justify-content:center}
+.sc-box canvas{max-width:100%;height:auto;touch-action:none;display:block}
+#out{touch-action:auto}

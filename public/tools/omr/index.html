@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OMR answer sheet maker - SKY Studio</title><meta name="description" content="Make a printable bubble answer sheet for a test. Free on SKY Studio - runs in your browser, nothing uploaded, no sign-up."><link rel="canonical" href="https://late-union-112b.vikaashvarma88.workers.dev/tools/omr/"><meta name="theme-color" content="#dcebf5"><link rel="stylesheet" href="/vendor/fonts/fonts.css"><link rel="stylesheet" href="../shared/tools.css"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:site_name" content="SKY Studio"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SKY Studio","url":"https://late-union-112b.vikaashvarma88.workers.dev/"}</script></head><body>
+<header class="pkb-top"><a class="pkb-brand" href="/">SKY <b>STUDIO</b></a><a class="pkb-back" href="/tools/">&larr; All tools</a></header>
+<main class="pkb" id="main"><p class="pkb-kicker">SKY Studio tool</p><h1>OMR answer sheet maker</h1><p class="sub">Make a printable bubble answer sheet for a test.</p>
+<div id="ctl">
+<label for="title" class="lbl">Test name (optional)</label><input id="title" type="text" maxlength="60" class="txt">
+<label for="q" class="lbl">Number of questions</label><select id="q"><option>20</option><option selected>50</option><option>100</option></select>
+<label for="o" class="lbl">Options per question</label><select id="o"><option value="4" selected>4 (A to D)</option><option value="5">5 (A to E)</option></select>
+<label class="opt"><input type="checkbox" id="hd" checked> Add Name, Roll no. and Date fields</label>
+<div class="row"><button id="mk">Make sheet</button><button id="pr" disabled>Print or save as PDF</button></div>
+<div id="st" class="msg" role="status" hidden></div>
+</div>
+<div id="sheet" class="omr" aria-label="Answer sheet preview"></div>
+<p class="small">Your settings stay in this page. Nothing is uploaded or saved. This makes a sheet to print and fill by hand. It does not scan or check answers. If you will scan it with a machine, test one printed sheet with that machine first: bubble size and position may need the machine's own format.</p></main><script src="app.js"></script></body></html>

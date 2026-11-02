@@ -1,0 +1,2 @@
+.pt-l{display:block;margin:0 0 6px}.chip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;border:1px solid #adc8da;border-radius:22px;margin:0 6px 6px 0}.chip input{margin:0}
+select.txt,input.txt{width:100%;box-sizing:border-box;min-height:44px}.pt-o{display:block;margin:6px 0}.pt-o a.dl{display:inline-block;margin:4px 0}.pt-g{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}@media(max-width:480px){.pt-g{grid-template-columns:1fr}}

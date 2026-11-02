@@ -1,0 +1,20 @@
+#sheet.iv,#mz.iv{margin:14px auto;background:#fff;color:#173b5e;text-align:center;overflow-wrap:anywhere;padding:26px 18px;display:flex;flex-direction:column;align-items:center;gap:12px;max-width:520px;box-sizing:border-box}
+#sheet.iv.a,#mz.iv.a{border:6px double #173b5e}#sheet.iv.b,#mz.iv.b{border:1px solid #adc8da;border-top:34px solid #24506f}#sheet.iv.c,#mz.iv.c{border:1px solid #adc8da}
+.iv-h{font-size:15px;letter-spacing:.12em;text-transform:uppercase}
+.iv-n{font-size:clamp(26px,7vw,38px);font-weight:800;line-height:1.15}
+.iv-x{font-size:16px;white-space:pre-wrap;max-width:26em}
+.iv-d{font-size:18px;font-weight:700;margin-top:6px;line-height:1.6}
+.iv-p{font-size:17px;white-space:pre-wrap}
+.iv-f{font-size:15px;margin-top:10px;white-space:pre-wrap}
+.iv-r{width:60px;border-top:2px solid #173b5e;margin:2px 0}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;border:1px solid #adc8da;border-radius:22px;margin:0 6px 6px 0}
+#oc,#st2{width:100%;box-sizing:border-box}
+#mz{position:absolute;left:-9999px;top:0;visibility:hidden;margin:0}
+#mz.iv{margin:0;max-width:none;width:186mm;height:270mm;justify-content:center;color:#000;padding:12mm 10mm;gap:5mm;overflow:hidden;break-inside:avoid;box-sizing:border-box}
+#mz.iv.a{border:3mm double #000}#mz.iv.b{border:.3mm solid #000;border-top:12mm solid #000}#mz.iv.c{border:.3mm solid #000}
+#mz .iv-h{font-size:calc(16pt*var(--k,1))}#mz .iv-n{font-size:calc(34pt*var(--k,1))}#mz .iv-x{font-size:calc(14pt*var(--k,1))}#mz .iv-d{font-size:calc(18pt*var(--k,1))}#mz .iv-p{font-size:calc(16pt*var(--k,1))}#mz .iv-f{font-size:calc(14pt*var(--k,1))}#mz .iv-r{border-color:#000}
+
+@media print{@page{size:A4;margin:12mm}.pkb:has(.iv) #ctl{display:none !important}#sheet.iv{margin:0;max-width:none;width:100%;height:270mm;justify-content:center;color:#000;padding:12mm 10mm;gap:5mm;overflow:hidden;break-inside:avoid;box-sizing:border-box}
+#sheet.iv.a{border:3mm double #000}#sheet.iv.b{border:.3mm solid #000;border-top:12mm solid #000}#sheet.iv.c{border:.3mm solid #000}
+.iv-h{font-size:calc(16pt*var(--k,1))}.iv-n{font-size:calc(34pt*var(--k,1))}.iv-x{font-size:calc(14pt*var(--k,1))}.iv-d{font-size:calc(18pt*var(--k,1))}.iv-p{font-size:calc(16pt*var(--k,1))}.iv-f{font-size:calc(14pt*var(--k,1))}.iv-r{border-color:#000}
+}

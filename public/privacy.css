@@ -1,0 +1,10 @@
+/* Privacy section: approved public copy (user-approved 08:56), readable on the pastel theme. */
+.sky-privacy{background:#eef0f9;color:#3c3556;padding:85px max(20px,calc((100vw - 760px)/2)) 95px}
+.sky-privacy h2{font-size:34px;letter-spacing:-.04em;line-height:1.12;color:#433959;margin:0 0 34px}
+.sky-privacy p{font-size:14px;line-height:1.8;color:#5d5470;margin:0 0 20px}
+.sky-privacy p b{color:#433959;font-weight:600}
+.sky-privacy a{color:#604a88;text-decoration:none;border-bottom:1px solid #b3a2cf;padding-bottom:2px}
+.sky-privacy a:focus-visible{outline:3px solid #70549b;outline-offset:4px}
+.footer-privacy{color:#574969;font-size:inherit;text-decoration:none;border-bottom:1px solid #a99cc0;padding-bottom:1px}
+.footer-privacy:focus-visible{outline:3px solid #70549b;outline-offset:4px}
+@media(max-width:700px){.sky-privacy{padding:60px 24px 70px}.sky-privacy h2{font-size:27px}.sky-privacy p{font-size:13px}}

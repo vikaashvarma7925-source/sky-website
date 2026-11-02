@@ -1,0 +1,12 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Habit tracker - SKY Studio</title><meta name="description" content="Make a one-month habit sheet. Tick the days on this page, or print it and tick with a pen. Free on SKY Studio - runs in your browser, nothing uploaded, no sign-up."><link rel="canonical" href="https://late-union-112b.vikaashvarma88.workers.dev/tools/habit/"><meta name="theme-color" content="#dcebf5"><link rel="stylesheet" href="/vendor/fonts/fonts.css"><link rel="stylesheet" href="../shared/tools.css"><link rel="stylesheet" href="habit.css"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:site_name" content="SKY Studio"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SKY Studio","url":"https://late-union-112b.vikaashvarma88.workers.dev/"}</script></head><body>
+<header class="pkb-top"><a class="pkb-brand" href="/">SKY <b>STUDIO</b></a><a class="pkb-back" href="/tools/">&larr; All tools</a></header>
+<main class="pkb" id="main"><p class="pkb-kicker">SKY Studio tool</p><h1>Habit tracker</h1><p class="sub">Make a one-month habit sheet. Tick the days on this page, or print it and tick with a pen.</p>
+<div id="ctl">
+<label class="lbl" for="mo">Month</label><select id="mo"></select>
+<label class="lbl" for="yr">Year</label><select id="yr"></select>
+<label class="lbl" for="hb">Habits (one per line, up to 10, each up to 24 characters)</label><textarea id="hb" class="txt" rows="5" maxlength="400" placeholder="Walk 30 minutes&#10;Drink 8 glasses of water&#10;Read 10 pages"></textarea>
+<p class="small">Ticks belong to the habit name (capital letters do not matter). If you change a name, its ticks stay with the old name and do not move to the new one.</p>
+<div id="st" class="msg" role="status" hidden></div>
+<div class="row"><button id="pr" type="button">Print or save as PDF</button><button id="cl" type="button" class="alt">Remove all ticks</button></div></div>
+<div class="gw" id="gw" tabindex="0" aria-label="Habit sheet. Scroll sideways to see all days."></div>
+<p class="small">Everything stays in this page. Nothing is uploaded or saved, so ticks are gone when you close or reload the page. Save the PDF if you want to keep a sheet. A saved PDF is stored on your device like any other file.</p></main><script src="app.js"></script></body></html>

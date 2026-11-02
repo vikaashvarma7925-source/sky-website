@@ -1,0 +1,16 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Teleprompter - SKY Studio</title><meta name="description" content="Scroll your script on screen while you record or speak. Free on SKY Studio - runs in your browser, nothing uploaded, no sign-up."><link rel="canonical" href="https://late-union-112b.vikaashvarma88.workers.dev/tools/teleprompter/"><meta name="theme-color" content="#dcebf5"><link rel="stylesheet" href="/vendor/fonts/fonts.css"><link rel="stylesheet" href="../shared/tools.css"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta property="og:site_name" content="SKY Studio"><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"SKY Studio","url":"https://late-union-112b.vikaashvarma88.workers.dev/"}</script></head><body>
+<header class="pkb-top"><a class="pkb-brand" href="/">SKY <b>STUDIO</b></a><a class="pkb-back" href="/tools/">&larr; All tools</a></header>
+<main class="pkb" id="main"><p class="pkb-kicker">SKY Studio tool</p><h1>Teleprompter</h1><p class="sub">Scroll your script on screen while you record or speak.</p>
+<div id="setup">
+<label for="t" class="lbl">Your script</label><textarea id="t"></textarea>
+<div class="row" style="margin-top:10px"><label for="sp" class="small">Speed</label><input id="sp" type="range" min="1" max="10" step="1" value="3"><output id="spv" class="small">3</output></div>
+<div class="row"><label for="fs" class="small">Text size</label><input id="fs" type="range" min="24" max="96" step="4" value="44"><output id="fsv" class="small">44</output></div>
+<label class="opt"><input type="checkbox" id="mir"> Mirror text (for a glass reflector)</label>
+<button id="go" disabled>Start</button>
+</div>
+<div id="stage" hidden>
+<div class="row"><button id="pp">Pause</button><button id="back5">Back a little</button><button id="rs">Start again</button><button id="ed">Edit script</button></div>
+<div id="view" tabindex="0" role="region" aria-label="Script. Space pauses or plays. Arrow keys scroll."><div id="txt"></div></div>
+<p class="small" id="hint">Space = pause or play. Up/Down arrows move the text. Speed changes while it runs.</p>
+</div>
+<p class="small">Your script stays in this page. It is not uploaded or saved. If you leave the page, the script is gone. On a phone, keep the screen awake yourself: this page cannot control that.</p></main><script src="app.js"></script></body></html>
