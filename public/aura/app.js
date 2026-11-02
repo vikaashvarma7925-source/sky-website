@@ -9,21 +9,38 @@ const stage = $("stage"), statePill = $("statePill");
 const talkImg = $("talkImg");
 
 /* ---------- lightweight talking view (preloaded stills, no continuous animation) ---------- */
-const SPRITES = { base: "talk/base.jpg", blink: "talk/blink.jpg", open1: "talk/open1.jpg", open2: "talk/open2.jpg", blinkOpen: "talk/blink_open2.jpg" };
-for (const k in SPRITES) { const im = new Image(); im.src = SPRITES[k]; }
+const SETS = {
+  neutral: { base: "talk/base.jpg", blink: "talk/blink.jpg", open1: "talk/open1.jpg", open2: "talk/open2.jpg", blinkOpen: "talk/blink_open2.jpg" },
+  smile:   { base: "talk/smile.jpg", open1: "talk/smile_open1.jpg", open2: "talk/smile_open2.jpg" },
+  concern: { base: "talk/concern.jpg", open1: "talk/concern_open1.jpg", open2: "talk/concern_open2.jpg" },
+  think:   { base: "talk/think.jpg", open1: "talk/think_open1.jpg", open2: "talk/think_open2.jpg" },
+};
+const TONE_SET = { happy: "smile", excited: "smile", playful: "smile", concerned: "concern", apologetic: "concern", thinking: "think" };
+for (const k in SETS.neutral) { const im = new Image(); im.src = SETS.neutral[k]; }
+function preloadSet(name) { for (const k in SETS[name]) { const im = new Image(); im.src = SETS[name][k]; } }
 
-let talking = false;
-const blinkTimers = [];
+let curSet = "neutral", talking = false, exprTimer = null;
+function exprFor(tone) { return TONE_SET[tone] || "neutral"; }
+function showExpr(name) {
+  curSet = name;
+  if (!talking) talkImg.src = SETS[name].base;
+}
+function showExprBrief(name, ms) {
+  if (name === "neutral") return;
+  preloadSet(name);
+  clearTimeout(exprTimer);
+  showExpr(name);
+  exprTimer = setTimeout(() => showExpr("neutral"), ms || 3500);
+}
 function show(key, ms, back) {
-  talkImg.src = SPRITES[key];
-  if (ms) blinkTimers.push(setTimeout(() => { talkImg.src = SPRITES[back || "base"]; }, ms));
+  talkImg.src = (SETS[curSet][key]) || SETS.neutral[key] || SETS.neutral.base;
+  if (ms) setTimeout(() => { if (!talking) talkImg.src = SETS[curSet].base; }, ms);
 }
 function scheduleBlink() {
-  blinkTimers.push(setTimeout(() => {
+  setTimeout(() => {
     if (!talking) show("blink", 180);
-    else { talkImg.src = SPRITES.blinkOpen; blinkTimers.push(setTimeout(() => {}, 160)); }
     scheduleBlink();
-  }, 2500 + Math.random() * 3500));
+  }, 2500 + Math.random() * 3500);
 }
 let mouthTimer = null;
 function setTalking(on) {
@@ -32,12 +49,13 @@ function setTalking(on) {
   if (on) {
     let flip = false;
     mouthTimer = setInterval(() => {
-      talkImg.src = SPRITES[flip ? "open2" : "open1"];
+      const st = SETS[curSet];
+      talkImg.src = flip ? st.open2 : st.open1;
       flip = !flip;
     }, 230);
   } else {
     clearInterval(mouthTimer); mouthTimer = null;
-    talkImg.src = SPRITES.base;
+    talkImg.src = SETS[curSet].base;
   }
 }
 scheduleBlink();
@@ -46,6 +64,7 @@ const STATE_LABEL = { idle: "Ready", thinking: "Thinking\u2026", speaking: "Spea
 function setState(s) {
   stage.dataset.state = s;
   statePill.textContent = STATE_LABEL[s] || s;
+  if (s === "thinking") { preloadSet("think"); showExpr("think"); }
   setTalking(s === "speaking");
 }
 
@@ -144,6 +163,42 @@ async function loadProviders() {
   }).join("") || "<li>No providers found.</li>";
 }
 providerSel.addEventListener("change", () => { stopSpeak(); setStatus("Switched to " + providerSel.selectedOptions[0].textContent); });
+
+
+/* ---------- one-time session gate (Cloudflare Turnstile, no keys in page) ---------- */
+let tsWidget = null, sessionPending = null;
+function renderTs(done) {
+  try {
+    const opts = {
+      sitekey: "0x4AAAAAAFma9HVVe7IMMcQC",
+      appearance: "interaction-only",
+      callback: async (token) => {
+        try {
+          const r = await fetch("/api/aura/session", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token }) });
+          done(r.ok);
+        } catch (e) { done(false); }
+      },
+      "error-callback": () => done(false),
+      "expired-callback": () => { sessionPending = null; },
+    };
+    if (tsWidget === null) tsWidget = turnstile.render("#tslot", opts);
+    else turnstile.reset(tsWidget);
+  } catch (e) { done(false); }
+}
+function ensureSession(force) {
+  if (sessionPending && !force) return sessionPending;
+  sessionPending = new Promise((resolve) => {
+    let settled = false;
+    const done = (ok) => { if (!settled) { settled = true; resolve(ok); } };
+    setTimeout(() => done(false), 20000); // never hang the send forever
+    let waited = 0;
+    const t = setInterval(() => {
+      if (window.turnstile) { clearInterval(t); renderTs(done); }
+      else if ((waited += 200) > 4000) { clearInterval(t); done(false); }
+    }, 200);
+  });
+  return sessionPending;
+}
 
 /* ---------- speech out ---------- */
 const synth = ("speechSynthesis" in window) ? window.speechSynthesis : null;
@@ -253,6 +308,9 @@ form.addEventListener("submit", async (e) => {
   saveHistory();
 
   const ab = bubble("assistant", "");
+  setStatus("One-time security check\u2026");
+  const gateOk = await ensureSession();
+  if (gateOk === false) setStatus("Security check could not run (ad-blocker?). Trying anyway\u2026", "warn");
   const ctrl = new AbortController();
   inFlight = ctrl;
   stopBtn.hidden = false;
@@ -278,6 +336,7 @@ form.addEventListener("submit", async (e) => {
     if (!r.ok) {
       const d = await r.json().catch(() => ({}));
       gotError = d.error || ("Error " + r.status);
+      if (r.status === 403) { sessionPending = null; ensureSession(true); }
     } else if (ctype.includes("text/event-stream")) {
       const reader = r.body.getReader();
       const dec = new TextDecoder();
@@ -340,6 +399,7 @@ form.addEventListener("submit", async (e) => {
   history.push({ role: "assistant", text: sp.text, meta: m.textContent });
   saveHistory();
   if (gotError) setStatus(gotError, "warn");
+  if (sp.tone) showExprBrief(exprFor(sp.tone));
   if (!ttsToggle.checked) setState("idle");
   speak(sp.text, { tone: sp.tone });
 });

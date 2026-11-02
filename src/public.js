@@ -1,5 +1,5 @@
 var SEC_HEADERS = {
-  "Content-Security-Policy": "default-src 'self'; script-src 'self'; style-src 'self'; style-src-attr 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' blob:; worker-src 'self' blob:; frame-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests",
+  "Content-Security-Policy": "default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self'; style-src-attr 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' blob:; worker-src 'self' blob:; frame-src 'self' https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; form-action 'self'; upgrade-insecure-requests",
   "X-Content-Type-Options": "nosniff",
   "X-Frame-Options": "SAMEORIGIN",
   "Referrer-Policy": "strict-origin-when-cross-origin",
@@ -177,13 +177,63 @@ async function auraChat(request, env) {
   return json(200, { reply: tone.text, provider: pid, model: usedModel, emotion: tone.emo });
 }
 
+/* ---------- AURA session gate: Turnstile -> HMAC cookie ----------
+   Active only when both TURNSTILE_SECRET_KEY and RATE_HMAC_KEY exist on the
+   worker. No secrets in the page; the sitekey is public by design. */
+async function hmacHex(key, msg) {
+  var enc = new TextEncoder();
+  var k = await crypto.subtle.importKey("raw", enc.encode(key), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  var sig = await crypto.subtle.sign("HMAC", k, enc.encode(msg));
+  var out = "";
+  for (var b of new Uint8Array(sig)) out += b.toString(16).padStart(2, "0");
+  return out;
+}
+function gateOn(env) { return !!(env.TURNSTILE_SECRET_KEY && env.RATE_HMAC_KEY); }
+async function sessionOk(request, env) {
+  if (!gateOn(env)) return true;
+  var c = request.headers.get("Cookie") || "";
+  var m = c.match(/aura_session=([0-9]+)\.([0-9a-f]{64})/);
+  if (!m) return false;
+  var exp = parseInt(m[1], 10);
+  if (!exp || Date.now() > exp) return false;
+  var expect = await hmacHex(env.RATE_HMAC_KEY, "aura." + m[1]);
+  var a = m[2], diff = 0;
+  if (a.length !== expect.length) return false;
+  for (var i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ expect.charCodeAt(i);
+  return diff === 0;
+}
+async function auraSession(request, env) {
+  if (request.method !== "POST") return json(405, { error: "Method not allowed" });
+  if (!gateOn(env)) return json(503, { error: "Security check is not configured." });
+  var body;
+  try { body = await request.json(); } catch (e) { return json(400, { error: "Invalid request." }); }
+  var token = body && typeof body.token === "string" ? body.token : "";
+  if (!token || token.length > 4096) return json(400, { error: "Missing check token." });
+  var form = new URLSearchParams();
+  form.set("secret", env.TURNSTILE_SECRET_KEY);
+  form.set("response", token);
+  form.set("remoteip", request.headers.get("CF-Connecting-IP") || "");
+  var vr = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", { method: "POST", body: form });
+  var vj = await vr.json().catch(function () { return {}; });
+  if (!vj.success) return json(403, { error: "Security check failed. Please reload the page." });
+  var exp = Date.now() + 12 * 3600 * 1000;
+  var sig = await hmacHex(env.RATE_HMAC_KEY, "aura." + exp);
+  var r = json(200, { ok: true });
+  r.headers.append("Set-Cookie", "aura_session=" + exp + "." + sig + "; HttpOnly; Secure; SameSite=Strict; Path=/api/aura; Max-Age=43200");
+  return r;
+}
+
 var public_default = {
   async fetch(request, env) {
     var url = new URL(request.url);
     var cp = cleanPath(url.pathname);
     if (cp === null) return plain(404, "Not found");
 
-    if (cp === "/api/aura/chat") return auraChat(request, env);
+    if (cp === "/api/aura/chat") {
+      if (!(await sessionOk(request, env))) return json(403, { error: "One-time security check needed. Please reload the page once." });
+      return auraChat(request, env);
+    }
+    if (cp === "/api/aura/session") return auraSession(request, env);
     if (cp === "/api/aura/status") {
       if (request.method !== "GET" && request.method !== "HEAD") return json(405, { error: "Method not allowed" });
       return json(200, { providers: providerStatus(env) });
