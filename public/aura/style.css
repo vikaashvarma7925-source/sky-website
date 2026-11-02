@@ -100,3 +100,5 @@ input[type=range]#rateCtl{width:90px;vertical-align:middle}
 .msg .md{white-space:normal}.msg pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0;padding:8px;background:rgba(255,255,255,.65);border-radius:8px}.msg code{font-family:ui-monospace,monospace;font-size:.9em}.composer textarea{min-width:0}
 
 .toolnote{font-size:13px;line-height:1.5;margin-bottom:12px}#toolForm{display:grid;gap:8px}#toolForm select,#toolInput{width:100%;min-width:0;padding:10px;border:1px solid var(--sky);border-radius:10px;font:inherit;color:var(--ink);background:white}#toolInput{resize:vertical}#toolRun{justify-self:start}#toolResult{display:block;margin-top:12px;overflow-wrap:anywhere}
+
+audio{display:block;width:100%;margin:10px 0 18px}
