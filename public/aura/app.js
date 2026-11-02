@@ -14,6 +14,7 @@ const stage = $("stage"), statePill = $("statePill");
 const STATE_LABEL = { idle: "Ready", thinking: "Thinking\u2026", speaking: "Speaking\u2026", listening: "Listening\u2026" };
 function setState(s) {
   stage.dataset.state = s;
+  window.dispatchEvent(new CustomEvent("aura-state", { detail: { state: s } }));
   statePill.textContent = STATE_LABEL[s] || s;
 }
 
@@ -358,6 +359,7 @@ form.addEventListener("submit", async (e) => {
   saveHistory();
   if (gotError) setStatus(gotError, "warn");
   setState("idle");
+  window.dispatchEvent(new CustomEvent("aura-reply", { detail: { tone: sp.tone } }));
   speak(sp.text, { tone: sp.tone });
 });
 

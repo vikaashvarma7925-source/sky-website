@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AURA contextual face lab</title>
+<meta name="description" content="AURA, the AI assistant inside SKY Studio. Chat in Hindi or English.">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/">SKY STUDIO</a>
+  <a class="back" href="/tools/">&larr; All tools</a>
+</header>
+
+<main class="wrap">
+  <section class="stage" id="stage" data-state="idle">
+    <div class="talkframe" id="talkFrame">
+      <img id="talkImg" src="../talk/base.jpg" alt="AURA in her blue dress" draggable="false">
+      <div class="statepill" id="statePill">Ready</div>
+    </div>
+    <p class="stage-note">Experimental contextual face test. Reconstructed 2D face on a <b>static body</b>, not 3D. Basic mouth cycling only when browser speech actually starts, <b>not phoneme lip sync</b>. Original static photo is the default. This is not the reference voice.</p>
+    <label class="voice"><input type="checkbox" id="faceEnabled"> Enable experimental face clips</label>
+    <p id="faceNote" class="stage-note" aria-live="polite">Face clips off. Static reference.</p>
+  </section>
+
+  <section class="chatcard">
+    <div class="chathead">
+      <img class="avatar" src="../avatar.jpg" alt="AURA character avatar" width="56" height="56">
+      <div class="who">
+        <h1>AURA</h1>
+        <p class="sub">SKY Studio AI assistant &middot; Hindi + English</p>
+      </div>
+      <div class="prov">
+        <label for="provider">Provider</label>
+        <select id="provider" aria-label="AI provider"></select>
+        <span id="provState" class="pill">checking&hellip;</span>
+      </div>
+    </div>
+
+    <div id="log" class="log" aria-live="polite"></div>
+
+    <div id="status" class="status" hidden></div>
+
+    <form id="chatForm" class="composer" autocomplete="off">
+      <button type="button" id="micBtn" class="iconbtn" title="Voice input" hidden>&#127908;</button>
+      <textarea id="input" rows="1" maxlength="2000" placeholder="AURA se poochho..." aria-label="Message AURA"></textarea>
+      <button type="button" id="stopBtn" class="stop" hidden>Stop</button>
+      <button type="submit" id="sendBtn" class="send" disabled>Send</button>
+    </form>
+
+    <div class="chatfoot">
+      <label class="voice"><input type="checkbox" id="ttsToggle" checked> Speak replies</label>
+      <label class="voice">Mic language <select id="inputLang" class="vctrl"><option value="hi-IN">Hindi</option><option value="en-IN">English (India)</option></select></label>
+      <select id="voiceSel" class="vctrl" aria-label="Voice"></select>
+      <label class="voice vctrl">Speed <input type="range" id="rateCtl" min="0.7" max="1.3" step="0.05" value="0.95"></label>
+      <button type="button" id="stopSpeak" class="linkbtn">Stop speaking</button>
+      <button type="button" id="clearBtn" class="linkbtn">Clear my history</button>
+      <span class="note">History stays in this browser only. Voice uses your browser's built-in free voices - works on most browsers but NOT yet verified on a real phone. AI answers can be wrong - please verify important things.</span>
+    </div>
+  </section>
+
+  <p class="stage-note">Face renderer: LivePortrait, MIT. <a href="license.html">License</a>. No InsightFace detection models used. <a href="../">Return to stable AURA preview</a>.</p>
+  <section class="about" aria-labelledby="toolsTitle">
+    <h2 id="toolsTitle">AURA tools</h2>
+    <p class="toolnote">Choose a tool and run it explicitly. These tools do not use an AI provider, browse the web or change anything outside this page.</p>
+    <form id="toolForm">
+      <label for="toolSelect">Tool</label>
+      <select id="toolSelect"><option value="calculate">Calculator</option><option value="text_stats">Text analysis</option></select>
+      <label for="toolInput">Expression or text</label>
+      <textarea id="toolInput" maxlength="16000" rows="3" placeholder="Example: (125 + 75) / 4" required></textarea>
+      <button class="send" id="toolRun">Run tool</button>
+    </form>
+    <output id="toolResult" aria-live="polite"></output>
+  </section>
+  <section class="about">
+    <h2>What AURA can do today</h2>
+    <ul>
+      <li><b>Chat for real</b> in Hindi or English - answers come live from an AI model, streamed as they are written. No hardcoded demo replies.</li>
+      <li><b>Speak and listen</b> - <b>browser-dependent, not yet tested on a real phone</b>: uses your browser's built-in voice, auto-picks Hindi or English, and adjusts tone slightly per reply. Tap-to-talk voice input; the mic runs only when you tap it. Real-phone testing remains pending.</li>
+      <li><b>Character animation: under development.</b> Opt-in experimental face clips are available above. Body movement and gestures are not implemented.</li>
+      <li><b>Remember this conversation</b> in <b>your browser only</b> (you can clear it anytime).</li>
+    </ul>
+    <h2>AI providers</h2>
+    <ul id="provList"><li>Checking&hellip;</li></ul>
+    <p class="tnote">Your messages go only to the provider shown as connected. Keys, when added, live as server-side Cloudflare secrets - never in the page. Free tiers have limits and can rate-limit; AURA will say so instead of failing silently.</p>
+    <h2>Honest limits</h2>
+    <ul>
+      <li><b>Full expressions, gestures and real lip sync (your example video's biggest feature): not implemented yet.</b> Default is static. Opt-in face clips offer blinking, one friendly expression and a basic speech-start mouth cycle. No body gestures or real lip sync.</li>
+      <li><b>Emotions are voice-only today.</b> Each reply carries a tone label describing AURA's own reply (happy, concerned, thinking...) and the voice adjusts a little; the opt-in lab can show a friendly face clip for a happy reply. The label describes her answer, never a guess about your mood.</li>
+      <li><b>No agent actions yet.</b> She cannot browse the web, read files or control external apps. The explicit calculator and text-analysis tools above work, but she cannot invoke them autonomously. External actions are disabled, not merely hidden behind a confirmation button.</li>
+      <li><b>Voice quality</b> depends on the browser's built-in voices - standard system voices, not a studio voice or a match verified against your reference.</li>
+    </ul>
+  </section>
+</main>
+
+<div id="tslot" style="position:fixed;bottom:8px;right:8px;z-index:50"></div>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+<script src="../app.js"></script>
+<script src="context.js"></script>
+</body>
+</html>
