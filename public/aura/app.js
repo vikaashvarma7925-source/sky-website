@@ -8,64 +8,14 @@ const providerSel = $("provider"), provState = $("provState"), provList = $("pro
 const stage = $("stage"), statePill = $("statePill");
 const talkImg = $("talkImg");
 
-/* ---------- lightweight talking view (preloaded stills, no continuous animation) ---------- */
-const SETS = {
-  neutral: { base: "talk/base.jpg", blink: "talk/blink.jpg", open1: "talk/open1.jpg", open2: "talk/open2.jpg", blinkOpen: "talk/blink_open2.jpg" },
-  smile:   { base: "talk/smile.jpg", open1: "talk/smile_open1.jpg", open2: "talk/smile_open2.jpg" },
-  concern: { base: "talk/concern.jpg", open1: "talk/concern_open1.jpg", open2: "talk/concern_open2.jpg" },
-  think:   { base: "talk/think.jpg", open1: "talk/think_open1.jpg", open2: "talk/think_open2.jpg" },
-};
-const TONE_SET = { happy: "smile", excited: "smile", playful: "smile", concerned: "concern", apologetic: "concern", thinking: "think" };
-for (const k in SETS.neutral) { const im = new Image(); im.src = SETS.neutral[k]; }
-function preloadSet(name) { for (const k in SETS[name]) { const im = new Image(); im.src = SETS[name][k]; } }
-
-let curSet = "neutral", talking = false, exprTimer = null;
-function exprFor(tone) { return TONE_SET[tone] || "neutral"; }
-function showExpr(name) {
-  curSet = name;
-  if (!talking) talkImg.src = SETS[name].base;
-}
-function showExprBrief(name, ms) {
-  if (name === "neutral") return;
-  preloadSet(name);
-  clearTimeout(exprTimer);
-  showExpr(name);
-  exprTimer = setTimeout(() => showExpr("neutral"), ms || 3500);
-}
-function show(key, ms, back) {
-  talkImg.src = (SETS[curSet][key]) || SETS.neutral[key] || SETS.neutral.base;
-  if (ms) setTimeout(() => { if (!talking) talkImg.src = SETS[curSet].base; }, ms);
-}
-function scheduleBlink() {
-  setTimeout(() => {
-    if (!talking) show("blink", 180);
-    scheduleBlink();
-  }, 2500 + Math.random() * 3500);
-}
-let mouthTimer = null;
-function setTalking(on) {
-  if (on === talking) return;
-  talking = on;
-  if (on) {
-    let flip = false;
-    mouthTimer = setInterval(() => {
-      const st = SETS[curSet];
-      talkImg.src = flip ? st.open2 : st.open1;
-      flip = !flip;
-    }, 230);
-  } else {
-    clearInterval(mouthTimer); mouthTimer = null;
-    talkImg.src = SETS[curSet].base;
-  }
-}
-scheduleBlink();
+/* ---------- character view: her real reference photo only ----------
+   Face animation is under development and intentionally not shown until it
+   meets the identity quality bar. */
 
 const STATE_LABEL = { idle: "Ready", thinking: "Thinking\u2026", speaking: "Speaking\u2026", listening: "Listening\u2026" };
 function setState(s) {
   stage.dataset.state = s;
   statePill.textContent = STATE_LABEL[s] || s;
-  if (s === "thinking") { preloadSet("think"); showExpr("think"); }
-  setTalking(s === "speaking");
 }
 
 /* ---------- helpers ---------- */
@@ -245,7 +195,6 @@ function speak(text, opts) {
 }
 function stopSpeak() {
   if (synth) synth.cancel();
-  setTalking(false);
   if (stage.dataset.state === "speaking") setState("idle");
 }
 $("stopSpeak").addEventListener("click", stopSpeak);
@@ -399,7 +348,6 @@ form.addEventListener("submit", async (e) => {
   history.push({ role: "assistant", text: sp.text, meta: m.textContent });
   saveHistory();
   if (gotError) setStatus(gotError, "warn");
-  if (sp.tone) showExprBrief(exprFor(sp.tone));
   if (!ttsToggle.checked) setState("idle");
   speak(sp.text, { tone: sp.tone });
 });
@@ -410,9 +358,6 @@ function splitTone(text) {
   if (m && TONES[m[1]]) return { tone: m[1], text: text.slice(m[0].length) };
   return { tone: null, text };
 }
-
-// preview test hook (no user data, view-only controls)
-window.__aura = { setTalking, showExpr, showExprBrief, exprFor, setState };
 
 renderHistory();
 loadProviders();
