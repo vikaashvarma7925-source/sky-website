@@ -37,7 +37,7 @@ function cleanPath(raw) {
 /* ---------- AURA provider router ----------
    Each adapter reports its real connection state. A provider is "connected"
    only when its server-side secret exists. No demo or fake responses. */
-var AURA_SYSTEM = "You are AURA, the friendly AI assistant inside SKY Studio, a free tools website. Reply in the same language the visitor uses (Hindi or English). Keep answers short, clear and honest. You can only chat right now: you cannot browse the web, run tools, or take actions. Never pretend you did something. If you do not know, say so.";
+var AURA_SYSTEM = "You are AURA, the friendly AI assistant inside SKY Studio, a free tools website. Reply in the same language the visitor uses (Hindi or English). Keep answers short, clear, warm and honest. Start every reply with exactly one tone token chosen from [neutral] [happy] [excited] [concerned] [thinking], then the reply text. Pick the tone from the visitor's message and mood: match jokes lightly, be gentle when they seem sad, stay serious for serious topics, and when unsure use [neutral] instead of guessing a mood. Example: [happy] Bahut accha! You can only chat right now: you cannot browse the web, run tools, or take actions. Never pretend you did something. If you do not know, say so.";
 
 var PROVIDERS = {
   cloudflare: { label: "Cloudflare Workers AI", model: "@cf/meta/llama-3.3-70b-instruct-fp8-fast" },
@@ -102,6 +102,12 @@ async function callGemini(key, model, messages) {
   return t;
 }
 
+function splitTone(t) {
+  var m = /^\s*\[(neutral|happy|concerned|thinking|excited)\]\s*/i.exec(t);
+  if (m) return { emo: m[1].toLowerCase(), text: t.slice(m[0].length) };
+  return { emo: null, text: t };
+}
+
 async function auraChat(request, env) {
   if (request.method !== "POST") return json(405, { error: "Method not allowed" });
   var ip = request.headers.get("CF-Connecting-IP") || "unknown";
@@ -126,18 +132,31 @@ async function auraChat(request, env) {
   if (!p) return json(400, { error: "Unknown provider." });
 
   var full = [{ role: "system", content: AURA_SYSTEM }].concat(msgs);
-  var reply;
+  var reply, usedModel = p.model;
   try {
     if (pid === "cloudflare") {
       if (!env.AI) return json(503, { error: "This AI provider is not connected yet." });
+      var wantStream = body.stream === true;
       var models = [p.model, "@cf/meta/llama-3.2-3b-instruct"];
+      var lastErr = null;
       for (var mi = 0; mi < models.length; mi++) {
         try {
+          if (wantStream) {
+            var s = await withTimeout(env.AI.run(models[mi], { messages: full, max_tokens: 600, stream: true }), 30000, "ai_timeout");
+            return wrap(new Response(s, {
+              status: 200,
+              headers: { "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-store", "X-AURA-Model": models[mi] }
+            }), "/aura/");
+          }
           var out = await withTimeout(env.AI.run(models[mi], { messages: full, max_tokens: 600 }), 30000, "ai_timeout");
           reply = out && out.response;
-          if (reply) { if (models[mi] !== p.model) p = Object.assign({}, p, { model: models[mi] }); break; }
-        } catch (e3) { if (mi === models.length - 1) throw e3; }
+          if (reply) { usedModel = models[mi]; break; }
+        } catch (e3) {
+          lastErr = e3;
+          if (!wantStream && mi === models.length - 1) throw e3;
+        }
       }
+      if (wantStream) throw lastErr || new Error("provider_empty");
       if (!reply) throw new Error("provider_empty");
     } else {
       var key = env[p.secret];
@@ -154,7 +173,8 @@ async function auraChat(request, env) {
     else if (e && /^provider_http_5/.test(e.message)) msg = "The AI provider is temporarily unavailable. Please try again.";
     return json(502, { error: msg });
   }
-  return json(200, { reply: reply, provider: pid, model: p.model });
+  var tone = splitTone(reply);
+  return json(200, { reply: tone.text, provider: pid, model: usedModel, emotion: tone.emo });
 }
 
 var public_default = {

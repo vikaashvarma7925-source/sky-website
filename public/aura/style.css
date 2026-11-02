@@ -13,6 +13,43 @@ body{
 .back{color:var(--ink-soft);text-decoration:none;background:rgba(255,255,255,.55);
   padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.7)}
 .wrap{max-width:860px;margin:0 auto;padding:6px 14px 40px}
+
+/* ---------- character stage ---------- */
+.stage{margin:6px 0 16px;text-align:center}
+.spinbox{
+  position:relative;margin:0 auto;overflow:hidden;border-radius:22px;
+  height:min(56vh,470px);max-width:min(88vw,420px);aspect-ratio:420/747;
+  border:1px solid rgba(255,255,255,.85);box-shadow:0 18px 50px rgba(30,80,130,.22);
+  touch-action:pan-y;cursor:grab;background:#1b1440;
+}
+.spinbox:active{cursor:grabbing}
+.spinbox img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  user-select:none;-webkit-user-select:none;-webkit-user-drag:none;
+  transform-origin:center center;
+  animation:aura-breathe 7s ease-in-out infinite;
+}
+@keyframes aura-breathe{0%,100%{scale:1}50%{scale:1.012}}
+.stage[data-state="speaking"] .spinbox{box-shadow:0 0 0 3px var(--sky),0 18px 60px rgba(60,140,220,.45);animation:aura-glow 1.6s ease-in-out infinite}
+@keyframes aura-glow{0%,100%{box-shadow:0 0 0 3px var(--sky),0 18px 60px rgba(60,140,220,.45)}50%{box-shadow:0 0 0 5px var(--soft),0 18px 70px rgba(60,140,220,.65)}}
+.stage[data-state="listening"] .spinbox{box-shadow:0 0 0 3px #9BE7C4,0 18px 60px rgba(40,160,110,.35)}
+.stage[data-state="thinking"] .spinbox{box-shadow:0 0 0 3px #FFE1A8,0 18px 60px rgba(190,140,40,.3)}
+.statepill{
+  position:absolute;top:12px;left:12px;padding:5px 14px;border-radius:999px;
+  background:rgba(10,25,45,.55);color:#EAF6FF;font-size:12px;font-weight:600;
+  letter-spacing:.04em;backdrop-filter:blur(4px);
+}
+.spinctl{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:10px}
+.cbtn{
+  border:1px solid var(--sky);background:rgba(255,255,255,.8);color:var(--ink);
+  border-radius:12px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;
+}
+.cbtn:hover{background:#fff}
+.cbtn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.spinprog{font-size:11px;color:var(--ink-soft);flex-basis:100%;text-align:center;min-height:14px}
+.stage-note{font-size:12px;color:var(--ink-soft);margin:8px auto 0;max-width:640px;line-height:1.5}
+
+/* ---------- chat ---------- */
 .chatcard{background:var(--card);border-radius:20px;box-shadow:0 18px 50px rgba(30,80,130,.18);
   display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(255,255,255,.8)}
 .chathead{display:flex;align-items:center;gap:14px;padding:16px 18px;
@@ -34,7 +71,9 @@ body{
 .msg.aura{align-self:flex-start;background:var(--ice);color:var(--ink);border-bottom-left-radius:6px}
 .msg .meta{display:block;margin-top:6px;font-size:11px;color:var(--ink-soft)}
 .msg.aura.error{background:#FDE0E0;color:#8F1F1F}
-.status{padding:8px 18px;font-size:13px;color:var(--ink-soft)}
+.msg.failed{outline:2px dashed #E8A0A0}
+.status{padding:8px 18px;font-size:13px;color:var(--ink-soft);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.retrybtn{border:1px solid var(--sky);background:#fff;border-radius:10px;padding:5px 12px;font-size:12px;cursor:pointer;color:var(--ink)}
 .composer{display:flex;gap:10px;align-items:flex-end;padding:12px 16px;border-top:1px solid var(--soft)}
 .composer textarea{flex:1;resize:none;max-height:140px;padding:12px 14px;border-radius:14px;
   border:1px solid var(--sky);font:inherit;font-size:15px;color:var(--ink);background:#FBFEFF}
@@ -42,6 +81,7 @@ body{
 .send{background:var(--ink);color:#fff;border:0;border-radius:14px;padding:12px 20px;font-size:15px;
   font-weight:600;cursor:pointer}
 .send:disabled{opacity:.45;cursor:not-allowed}
+.stop{background:#B23B3B;color:#fff;border:0;border-radius:14px;padding:12px 16px;font-size:14px;font-weight:600;cursor:pointer}
 .iconbtn{border:1px solid var(--sky);background:#fff;border-radius:12px;font-size:18px;
   padding:9px 12px;cursor:pointer}
 .iconbtn.rec{background:#FDE0E0;border-color:#E88}
@@ -49,9 +89,17 @@ body{
 .voice{display:flex;align-items:center;gap:6px}
 .linkbtn{background:none;border:0;color:var(--ink-soft);text-decoration:underline;cursor:pointer;font-size:12px}
 .note{flex-basis:100%}
+.vctrl{font-size:12px;color:var(--ink-soft)}
+select.vctrl{max-width:170px;padding:4px 6px;border-radius:8px;border:1px solid var(--sky);background:#fff}
+input[type=range]#rateCtl{width:90px;vertical-align:middle}
+
+/* ---------- about ---------- */
 .about{margin-top:22px;background:rgba(255,255,255,.7);border-radius:16px;padding:18px 20px}
 .about h2{font-size:15px;margin-bottom:8px}
 .about ul{margin:0 0 14px 20px;font-size:14px;color:var(--ink-soft)}
+.about li{margin-bottom:6px}
+.tnote{font-size:12px;color:var(--ink-soft);margin:-6px 0 14px;line-height:1.5}
+
 @media (max-width:640px){
   .chathead{flex-wrap:wrap}
   .prov{margin-left:0;width:100%;display:flex;align-items:center;gap:8px;text-align:left;flex-wrap:wrap}
@@ -62,18 +110,10 @@ body{
   .msg{max-width:92%}
   .composer{padding:10px}
   .send{padding:12px 14px}
+  .spinbox{height:min(62vw*1.4,420px);height:min(58vh,420px)}
+  select.vctrl{max-width:130px}
 }
-
-.stage{margin:6px 0 16px}
-.aura3d{height:min(52vw,360px);min-height:240px;border-radius:20px;background:linear-gradient(180deg,var(--soft),var(--ice));
-  border:1px solid rgba(255,255,255,.8);box-shadow:0 18px 50px rgba(30,80,130,.18);overflow:hidden;touch-action:none;position:relative}
-.aura3d:not(.ready)::after{content:"Loading 3D…";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);font-size:14px}
-.aura3d.failed::after{content:"3D could not load in this browser. Chat still works.";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);font-size:14px;padding:0 20px;text-align:center}
-.stage-note{font-size:12px;color:var(--ink-soft);margin-top:8px;text-align:center}
-.stage-note a{color:var(--ink-soft)}
-.vctrl{font-size:12px;color:var(--ink-soft)}
-select.vctrl{max-width:170px;padding:4px 6px;border-radius:8px;border:1px solid var(--sky);background:#fff}
-input[type=range].vctrl,#rateCtl{width:90px;vertical-align:middle}
-@media (max-width:640px){.aura3d{height:min(70vw,340px)}select.vctrl{max-width:130px}}
-.demo3d-btn{display:block;width:100%;margin:6px 0 4px;padding:10px 14px;border:1px solid var(--line,#cfe3f5);border-radius:14px;background:var(--ice,#D9EEFF);color:var(--ink-soft,#4a6a86);font-size:13px;cursor:pointer;text-align:center}
-.demo3d-btn:focus-visible{outline:2px solid var(--sky,#91CFFF);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){
+  .spinbox img{animation:none}
+  .stage[data-state="speaking"] .spinbox{animation:none}
+}
