@@ -411,6 +411,9 @@ function splitTone(text) {
   return { tone: null, text };
 }
 
+// preview test hook (no user data, view-only controls)
+window.__aura = { setTalking, showExpr, showExprBrief, exprFor, setState };
+
 renderHistory();
 loadProviders();
 setState("idle");
